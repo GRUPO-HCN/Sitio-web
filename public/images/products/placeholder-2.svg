@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <rect width="400" height="400" fill="#f0fdfa"/>
+  <rect x="1" y="1" width="398" height="398" rx="7" stroke="#99f6e4" stroke-width="2"/>
+  <circle cx="200" cy="170" r="50" stroke="#5eead4" stroke-width="2"/>
+  <path d="M160 250h80" stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
+  <path d="M175 270h50" stroke="#99f6e4" stroke-width="2" stroke-linecap="round"/>
+  <text x="200" y="320" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#5eead4">Vista alternativa</text>
+</svg>

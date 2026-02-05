@@ -1,0 +1,210 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Pagination from '../../components/Pagination.astro';
+import { products, categories, brands, getUniqueMaterials, getUniqueSizes } from '../../data/products';
+import { site } from '../../data/site';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  return paginate(products, { pageSize: 20 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const currentPage = page.currentPage;
+const lastPage = page.lastPage;
+
+const allMaterials = getUniqueMaterials();
+const allSizes = getUniqueSizes();
+
+// SEO: canonical always points to clean URL for page 1, numbered for the rest
+const canonicalUrl = currentPage === 1
+  ? `${site.url}/productos/`
+  : `${site.url}/productos/${currentPage}/`;
+const prevUrl = currentPage > 1
+  ? (currentPage === 2 ? `${site.url}/productos/` : `${site.url}/productos/${currentPage - 1}/`)
+  : undefined;
+const nextUrl = currentPage < lastPage
+  ? `${site.url}/productos/${currentPage + 1}/`
+  : undefined;
+
+const pageTitle = currentPage === 1
+  ? 'Catálogo de Productos'
+  : `Catálogo de Productos — Página ${currentPage}`;
+const pageDesc = currentPage === 1
+  ? 'Explora nuestro catálogo completo de válvulas, conexiones, tuberías y accesorios para instalaciones hidráulicas y sanitarias.'
+  : `Página ${currentPage} del catálogo de productos. Válvulas, conexiones, tuberías y accesorios.`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonicalUrl}
+  prev={prevUrl}
+  next={nextUrl}
+>
+  <!-- Breadcrumb -->
+  <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-2 text-sm text-gray-500">
+      <li><a href="/" class="hover:text-cyan-600 transition-colors">Inicio</a></li>
+      <li aria-hidden="true">/</li>
+      <li class="font-medium text-gray-900">Productos</li>
+      {currentPage > 1 && (
+        <>
+          <li aria-hidden="true">/</li>
+          <li class="font-medium text-gray-900">Página {currentPage}</li>
+        </>
+      )}
+    </ol>
+  </nav>
+
+  <section class="pb-16 sm:pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        title="Todos los Productos"
+        subtitle={`${products.length} productos disponibles · Página ${currentPage} de ${lastPage}`}
+      />
+
+      <!-- Search & filters (client-side, filters within current page) -->
+      <div class="mb-8 space-y-4" id="filters-container">
+        <div class="relative">
+          <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Filtrar en esta página por nombre, SKU o material..."
+            class="w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+          />
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <select id="filter-category" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
+            <option value="">Todas las categorías</option>
+            {categories.map(c => (
+              <option value={c.id}>{c.name}</option>
+            ))}
+          </select>
+          <select id="filter-brand" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
+            <option value="">Todas las marcas</option>
+            {brands.map(b => (
+              <option value={b.id}>{b.name}</option>
+            ))}
+          </select>
+          <select id="filter-material" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
+            <option value="">Todos los materiales</option>
+            {allMaterials.map(m => (
+              <option value={m}>{m}</option>
+            ))}
+          </select>
+          <select id="filter-size" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
+            <option value="">Todos los tamaños</option>
+            {allSizes.map(s => (
+              <option value={s}>{s}</option>
+            ))}
+          </select>
+          <button
+            type="button"
+            id="clear-filters"
+            class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-500 transition-colors hover:border-red-300 hover:text-red-500"
+          >
+            Limpiar filtros
+          </button>
+        </div>
+
+        <p class="text-sm text-gray-500" id="result-count"></p>
+      </div>
+
+      <!-- Product grid (only this page's products) -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4" id="product-grid">
+        {page.data.map((product: typeof products[number]) => (
+          <div
+            class="product-item"
+            data-name={product.name.toLowerCase()}
+            data-sku={product.sku.toLowerCase()}
+            data-category={product.categoryId}
+            data-brand={product.brandId}
+            data-material={product.material}
+            data-size={product.size}
+          >
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+
+      <!-- No filter results -->
+      <div class="hidden py-16 text-center" id="no-results">
+        <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        <p class="mt-4 text-gray-500">No se encontraron productos con esos filtros en esta página.</p>
+        <button type="button" id="clear-filters-alt" class="mt-2 text-sm text-cyan-600 hover:text-cyan-700">Limpiar filtros</button>
+      </div>
+
+      <!-- Pagination -->
+      <Pagination currentPage={currentPage} lastPage={lastPage} baseUrl="/productos" />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterCategory = document.getElementById('filter-category') as HTMLSelectElement;
+  const filterBrand = document.getElementById('filter-brand') as HTMLSelectElement;
+  const filterMaterial = document.getElementById('filter-material') as HTMLSelectElement;
+  const filterSize = document.getElementById('filter-size') as HTMLSelectElement;
+  const clearBtn = document.getElementById('clear-filters');
+  const clearBtnAlt = document.getElementById('clear-filters-alt');
+  const grid = document.getElementById('product-grid')!;
+  const noResults = document.getElementById('no-results')!;
+  const resultCount = document.getElementById('result-count')!;
+  const items = grid.querySelectorAll<HTMLElement>('.product-item');
+
+  function applyFilters() {
+    const query = searchInput.value.toLowerCase().trim();
+    const cat = filterCategory.value;
+    const brand = filterBrand.value;
+    const material = filterMaterial.value;
+    const size = filterSize.value;
+    let visible = 0;
+
+    items.forEach(item => {
+      const name = item.dataset.name ?? '';
+      const sku = item.dataset.sku ?? '';
+      const iCat = item.dataset.category ?? '';
+      const iBrand = item.dataset.brand ?? '';
+      const iMat = item.dataset.material ?? '';
+      const iSize = item.dataset.size ?? '';
+
+      const matchSearch = !query || name.includes(query) || sku.includes(query) || iMat.toLowerCase().includes(query);
+      const matchCat = !cat || iCat === cat;
+      const matchBrand = !brand || iBrand === brand;
+      const matchMat = !material || iMat === material;
+      const matchSize = !size || iSize === size;
+
+      const show = matchSearch && matchCat && matchBrand && matchMat && matchSize;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+    resultCount.textContent = `Mostrando ${visible} de ${items.length} productos en esta página`;
+  }
+
+  function clearFilters() {
+    searchInput.value = '';
+    filterCategory.value = '';
+    filterBrand.value = '';
+    filterMaterial.value = '';
+    filterSize.value = '';
+    applyFilters();
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  filterCategory.addEventListener('change', applyFilters);
+  filterBrand.addEventListener('change', applyFilters);
+  filterMaterial.addEventListener('change', applyFilters);
+  filterSize.addEventListener('change', applyFilters);
+  clearBtn?.addEventListener('click', clearFilters);
+  clearBtnAlt?.addEventListener('click', clearFilters);
+
+  applyFilters();
+</script>
