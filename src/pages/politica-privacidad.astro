@@ -1,17 +1,135 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 ---
 
 <BaseLayout
   title="Política de Privacidad"
-  description="Conoce nuestra política de privacidad y cómo protegemos tu información personal."
+  description="Política de privacidad y protección de datos personales de Grupo HCN, conforme a la Ley N° 29733 del Perú."
 >
-  <section class="py-16 sm:py-20">
+  <!-- Breadcrumb -->
+  <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li aria-hidden="true">/</li>
+      <li class="font-medium text-gray-900 dark:text-white">Política de Privacidad</li>
+    </ol>
+  </nav>
+
+  <section class="py-12 sm:py-16">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">Política de Privacidad</h1>
-      <div class="mt-8 prose prose-gray max-w-none text-sm text-gray-600 leading-relaxed space-y-4">
-        <p>Esta página es un placeholder. Aquí se debe incluir la política de privacidad de la empresa, detallando cómo se recopilan, utilizan y protegen los datos personales de los visitantes del sitio.</p>
-        <p>Contenido pendiente de redacción legal.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Política de Privacidad</h1>
+      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Última actualización: Febrero 2026</p>
+
+      <div class="mt-8 space-y-8 text-sm text-gray-600 leading-relaxed dark:text-gray-300">
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">1. Información General</h2>
+          <p class="mt-3">
+            <strong class="text-gray-900 dark:text-white">{site.name}</strong> (en adelante, "la Empresa") se compromete a proteger la privacidad de los usuarios que visitan nuestro sitio web. Esta Política de Privacidad describe cómo recopilamos, utilizamos y protegemos su información personal, en cumplimiento con la Ley N° 29733 - Ley de Protección de Datos Personales del Perú y su Reglamento aprobado por Decreto Supremo N° 003-2013-JUS.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">2. Datos que Recopilamos</h2>
+          <p class="mt-3">Podemos recopilar los siguientes tipos de información:</p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li><strong class="text-gray-900 dark:text-white">Datos de identificación:</strong> Nombre, apellidos, número de DNI o documento de identidad.</li>
+            <li><strong class="text-gray-900 dark:text-white">Datos de contacto:</strong> Correo electrónico, número de teléfono, dirección postal.</li>
+            <li><strong class="text-gray-900 dark:text-white">Datos de navegación:</strong> Dirección IP, tipo de navegador, páginas visitadas, tiempo de permanencia.</li>
+            <li><strong class="text-gray-900 dark:text-white">Datos comerciales:</strong> Historial de consultas, productos de interés, cotizaciones solicitadas.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">3. Finalidad del Tratamiento</h2>
+          <p class="mt-3">Sus datos personales serán utilizados para:</p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Responder a sus consultas y solicitudes de cotización.</li>
+            <li>Gestionar la relación comercial y el servicio de atención al cliente.</li>
+            <li>Enviar información sobre productos, promociones y novedades (previo consentimiento).</li>
+            <li>Atender reclamaciones a través del Libro de Reclamaciones.</li>
+            <li>Cumplir con obligaciones legales y regulatorias.</li>
+            <li>Mejorar nuestros servicios y la experiencia del usuario en el sitio web.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">4. Base Legal del Tratamiento</h2>
+          <p class="mt-3">El tratamiento de sus datos personales se fundamenta en:</p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Su consentimiento expreso otorgado al enviar formularios de contacto.</li>
+            <li>La ejecución de medidas precontractuales (cotizaciones) o contractuales.</li>
+            <li>El cumplimiento de obligaciones legales aplicables.</li>
+            <li>El interés legítimo de la Empresa para mejorar sus servicios.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">5. Derechos del Titular</h2>
+          <p class="mt-3">
+            De acuerdo con la Ley N° 29733, usted tiene derecho a:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li><strong class="text-gray-900 dark:text-white">Acceso:</strong> Conocer qué datos personales tenemos sobre usted.</li>
+            <li><strong class="text-gray-900 dark:text-white">Rectificación:</strong> Solicitar la corrección de datos inexactos o incompletos.</li>
+            <li><strong class="text-gray-900 dark:text-white">Cancelación:</strong> Solicitar la eliminación de sus datos cuando ya no sean necesarios.</li>
+            <li><strong class="text-gray-900 dark:text-white">Oposición:</strong> Oponerse al tratamiento de sus datos para determinadas finalidades.</li>
+          </ul>
+          <p class="mt-3">
+            Para ejercer estos derechos, puede contactarnos a través de <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">{site.email}</a> o por escrito a nuestra dirección: {site.address}.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">6. Seguridad de los Datos</h2>
+          <p class="mt-3">
+            Implementamos medidas técnicas, organizativas y legales apropiadas para proteger sus datos personales contra el acceso no autorizado, pérdida, alteración o destrucción. Nuestro personal está capacitado en el manejo confidencial de información personal.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">7. Transferencia de Datos</h2>
+          <p class="mt-3">
+            No compartimos sus datos personales con terceros, excepto cuando sea necesario para:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Cumplir con obligaciones legales ante autoridades competentes.</li>
+            <li>Proveedores de servicios que nos asisten en nuestras operaciones (bajo acuerdos de confidencialidad).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">8. Conservación de Datos</h2>
+          <p class="mt-3">
+            Sus datos personales serán conservados durante el tiempo necesario para cumplir con las finalidades descritas y los plazos legales de conservación aplicables. Una vez cumplidos estos plazos, procederemos a su eliminación segura.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">9. Cookies</h2>
+          <p class="mt-3">
+            Nuestro sitio web puede utilizar cookies para mejorar la experiencia de navegación. Puede configurar su navegador para rechazar cookies, aunque esto podría afectar algunas funcionalidades del sitio.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">10. Modificaciones</h2>
+          <p class="mt-3">
+            Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier momento. Los cambios serán publicados en esta página con la fecha de actualización correspondiente.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">11. Contacto</h2>
+          <p class="mt-3">
+            Si tiene preguntas sobre esta Política de Privacidad o el tratamiento de sus datos personales, puede contactarnos:
+          </p>
+          <ul class="mt-3 space-y-1">
+            <li><strong class="text-gray-900 dark:text-white">Email:</strong> <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">{site.email}</a></li>
+            <li><strong class="text-gray-900 dark:text-white">Teléfono:</strong> {site.phoneDisplay}</li>
+            <li><strong class="text-gray-900 dark:text-white">Dirección:</strong> {site.address}</li>
+          </ul>
+        </section>
       </div>
     </div>
   </section>

@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { products, brands } from '../data/products';
+import { whatsappLink } from '../data/site';
+
+// Filter products with stainless steel material
+const divisionProducts = products.filter(p => p.material === 'Acero Inoxidable');
+
+const allSizes = [...new Set(divisionProducts.map(p => p.size))].sort();
+const allBrands = [...new Set(divisionProducts.map(p => p.brandId))].map(id => brands.find(b => b.id === id)!).filter(Boolean);
+
+---
+
+<BaseLayout
+  title="Productos de Acero Inoxidable"
+  description="Catálogo de productos de acero inoxidable: válvulas, bombas, accesorios, instrumentación y más para aplicaciones industriales y sanitarias."
+>
+  <!-- Full product catalog -->
+  <section class="py-12 sm:py-16 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        title="Todos los Productos"
+        subtitle={`${divisionProducts.length} productos en acero inoxidable`}
+      />
+
+      <!-- Search & filters -->
+      <div class="mb-8 space-y-4">
+        <div class="relative">
+          <svg class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+          <input
+            type="search"
+            id="ai-search"
+            placeholder="Buscar por nombre, SKU o material..."
+            class="w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
+          />
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <select id="ai-brand" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200">
+            <option value="">Todas las marcas</option>
+            {allBrands.map(b => (
+              <option value={b.id}>{b.name}</option>
+            ))}
+          </select>
+          <select id="ai-size" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200">
+            <option value="">Todos los tamaños</option>
+            {allSizes.map(s => (
+              <option value={s}>{s}</option>
+            ))}
+          </select>
+          <button type="button" id="ai-clear" class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-500 transition-colors hover:border-red-300 hover:text-red-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-red-500 dark:hover:text-red-400">
+            Limpiar filtros
+          </button>
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400" id="ai-count"></p>
+      </div>
+
+      <!-- Product grid -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4" id="ai-grid">
+        {divisionProducts.map(product => (
+          <div
+            class="ai-item"
+            data-name={product.name.toLowerCase()}
+            data-sku={product.sku.toLowerCase()}
+            data-brand={product.brandId}
+            data-size={product.size}
+          >
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
+
+      <!-- No results -->
+      <div class="hidden py-16 text-center" id="ai-empty">
+        <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        <p class="mt-4 text-gray-500 dark:text-gray-400">No se encontraron productos con esos filtros.</p>
+        <button type="button" id="ai-clear-alt" class="mt-2 text-sm text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300">Limpiar filtros</button>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 rounded-xl bg-gray-900 p-8 text-center sm:p-12 dark:bg-gray-950">
+        <h2 class="text-xl font-bold text-white sm:text-2xl">¿No encuentras lo que buscas?</h2>
+        <p class="mt-2 text-gray-300">Contáctanos y te ayudamos a encontrar el producto de acero inoxidable que necesitas.</p>
+        <a
+          href={whatsappLink('Hola, busco un producto de acero inoxidable que no encuentro en el catálogo.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 text-base font-semibold text-white transition-all duration-200 hover:bg-cyan-400 active:scale-[0.98]"
+        >
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const search = document.getElementById('ai-search') as HTMLInputElement;
+  const brand = document.getElementById('ai-brand') as HTMLSelectElement;
+  const size = document.getElementById('ai-size') as HTMLSelectElement;
+  const clearBtn = document.getElementById('ai-clear');
+  const clearAlt = document.getElementById('ai-clear-alt');
+  const grid = document.getElementById('ai-grid')!;
+  const empty = document.getElementById('ai-empty')!;
+  const count = document.getElementById('ai-count')!;
+  const items = grid.querySelectorAll<HTMLElement>('.ai-item');
+
+  function filter() {
+    const q = search.value.toLowerCase().trim();
+    const b = brand.value;
+    const s = size.value;
+    let v = 0;
+    items.forEach(el => {
+      const show =
+        (!q || (el.dataset.name ?? '').includes(q) || (el.dataset.sku ?? '').includes(q)) &&
+        (!b || el.dataset.brand === b) &&
+        (!s || el.dataset.size === s);
+      el.style.display = show ? '' : 'none';
+      if (show) v++;
+    });
+    empty.classList.toggle('hidden', v > 0);
+    count.textContent = `Mostrando ${v} de ${items.length} productos`;
+  }
+
+  function clear() {
+    search.value = '';
+    brand.value = '';
+    size.value = '';
+    filter();
+  }
+
+  search.addEventListener('input', filter);
+  brand.addEventListener('change', filter);
+  size.addEventListener('change', filter);
+  clearBtn?.addEventListener('click', clear);
+  clearAlt?.addEventListener('click', clear);
+  filter();
+</script>

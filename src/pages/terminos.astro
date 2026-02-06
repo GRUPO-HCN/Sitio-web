@@ -1,17 +1,142 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 ---
 
 <BaseLayout
   title="Términos y Condiciones"
-  description="Términos y condiciones de uso del sitio web de Grupo HCN."
+  description="Términos y condiciones de uso del sitio web de Grupo HCN. Condiciones aplicables a la navegación y uso de nuestros servicios."
 >
-  <section class="py-16 sm:py-20">
+  <!-- Breadcrumb -->
+  <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li aria-hidden="true">/</li>
+      <li class="font-medium text-gray-900 dark:text-white">Términos y Condiciones</li>
+    </ol>
+  </nav>
+
+  <section class="py-12 sm:py-16">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">Términos y Condiciones</h1>
-      <div class="mt-8 text-sm text-gray-600 leading-relaxed space-y-4">
-        <p>Esta página es un placeholder. Aquí se deben incluir los términos y condiciones de uso del sitio web.</p>
-        <p>Contenido pendiente de redacción legal.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Términos y Condiciones</h1>
+      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Última actualización: Febrero 2026</p>
+
+      <div class="mt-8 space-y-8 text-sm text-gray-600 leading-relaxed dark:text-gray-300">
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">1. Aceptación de los Términos</h2>
+          <p class="mt-3">
+            Al acceder y utilizar el sitio web de <strong class="text-gray-900 dark:text-white">{site.name}</strong> (en adelante, "el Sitio"), usted acepta estos Términos y Condiciones en su totalidad. Si no está de acuerdo con alguna parte de estos términos, le recomendamos no utilizar el Sitio.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">2. Descripción del Servicio</h2>
+          <p class="mt-3">
+            El Sitio es un catálogo informativo de productos de válvulas, conexiones y accesorios para instalaciones hidráulicas y sanitarias. <strong class="text-gray-900 dark:text-white">No es una tienda de comercio electrónico.</strong> Los productos mostrados son referenciales y las transacciones comerciales se realizan a través de cotización directa por WhatsApp o en nuestra ubicación física.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">3. Uso del Sitio</h2>
+          <p class="mt-3">El usuario se compromete a:</p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Utilizar el Sitio únicamente para fines lícitos y de conformidad con estos Términos.</li>
+            <li>No intentar acceder a áreas restringidas del Sitio.</li>
+            <li>No realizar actividades que puedan dañar, sobrecargar o perjudicar el funcionamiento del Sitio.</li>
+            <li>No utilizar mecanismos automatizados para extraer información del Sitio.</li>
+            <li>Proporcionar información veraz al realizar consultas o solicitar cotizaciones.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">4. Información de Productos</h2>
+          <p class="mt-3">
+            Nos esforzamos por mantener la información de productos actualizada y precisa. Sin embargo:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Las imágenes de productos son ilustrativas y pueden variar ligeramente del producto real.</li>
+            <li>Las especificaciones técnicas están sujetas a cambios sin previo aviso.</li>
+            <li>La disponibilidad de productos debe confirmarse al momento de la cotización.</li>
+            <li>Los precios no se muestran en el Sitio y deben consultarse directamente con nuestro equipo.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">5. Cotizaciones y Compras</h2>
+          <p class="mt-3">El proceso de compra funciona de la siguiente manera:</p>
+          <ol class="mt-3 list-decimal pl-5 space-y-2">
+            <li>El usuario navega el catálogo y selecciona los productos de su interés.</li>
+            <li>El usuario solicita una cotización a través de WhatsApp o contacto directo.</li>
+            <li>Nuestro equipo confirma disponibilidad, precios y condiciones.</li>
+            <li>La transacción se formaliza según las condiciones acordadas.</li>
+          </ol>
+          <p class="mt-3">
+            <strong class="text-gray-900 dark:text-white">Importante:</strong> Ninguna interacción en el Sitio constituye una oferta vinculante ni un contrato de compraventa hasta que se confirme expresamente por nuestro equipo comercial.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">6. Propiedad Intelectual</h2>
+          <p class="mt-3">
+            Todo el contenido del Sitio, incluyendo pero no limitado a textos, gráficos, logotipos, imágenes, diseño, estructura y software, es propiedad de {site.name} o de sus proveedores y está protegido por las leyes de propiedad intelectual del Perú y tratados internacionales.
+          </p>
+          <p class="mt-3">
+            Queda prohibida la reproducción, distribución, modificación o uso comercial del contenido sin autorización expresa por escrito.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">7. Limitación de Responsabilidad</h2>
+          <p class="mt-3">
+            En la máxima medida permitida por la ley peruana:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>El Sitio se proporciona "tal cual" sin garantías de ningún tipo.</li>
+            <li>No garantizamos que el Sitio esté libre de errores o disponible de forma ininterrumpida.</li>
+            <li>No seremos responsables por daños directos, indirectos, incidentales o consecuentes derivados del uso del Sitio.</li>
+            <li>No somos responsables por el contenido de sitios web externos enlazados desde el Sitio.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">8. Enlaces a Terceros</h2>
+          <p class="mt-3">
+            El Sitio puede contener enlaces a sitios web de terceros (como WhatsApp o redes sociales). Estos enlaces se proporcionan únicamente para su conveniencia. No tenemos control sobre el contenido de estos sitios y no asumimos responsabilidad por ellos.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">9. Protección al Consumidor</h2>
+          <p class="mt-3">
+            Conforme al Código de Protección y Defensa del Consumidor (Ley N° 29571), ponemos a su disposición nuestro <a href="/libro-reclamaciones" class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones</a> para que pueda registrar cualquier queja o reclamo.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">10. Modificaciones</h2>
+          <p class="mt-3">
+            Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Las modificaciones entrarán en vigor desde su publicación en el Sitio. El uso continuado del Sitio después de cualquier cambio constituye su aceptación de los nuevos términos.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">11. Ley Aplicable y Jurisdicción</h2>
+          <p class="mt-3">
+            Estos Términos y Condiciones se rigen por las leyes de la República del Perú. Cualquier controversia derivada del uso del Sitio se someterá a la jurisdicción de los tribunales competentes de Lima, Perú, salvo lo dispuesto por las normas de protección al consumidor.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">12. Contacto</h2>
+          <p class="mt-3">
+            Si tiene preguntas sobre estos Términos y Condiciones, puede contactarnos:
+          </p>
+          <ul class="mt-3 space-y-1">
+            <li><strong class="text-gray-900 dark:text-white">Email:</strong> <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">{site.email}</a></li>
+            <li><strong class="text-gray-900 dark:text-white">Teléfono:</strong> {site.phoneDisplay}</li>
+            <li><strong class="text-gray-900 dark:text-white">Dirección:</strong> {site.address}</li>
+          </ul>
+        </section>
       </div>
     </div>
   </section>

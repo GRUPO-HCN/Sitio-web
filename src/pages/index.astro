@@ -2,9 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ProductCard from '../components/ProductCard.astro';
-import CategoryCard from '../components/CategoryCard.astro';
 import { site, whatsappLink } from '../data/site';
-import { categories, getFeaturedProducts, brands } from '../data/products';
+import { getFeaturedProducts, brands } from '../data/products';
 
 const featured = getFeaturedProducts().slice(0, 8);
 
@@ -56,7 +55,7 @@ const faqs = [
   },
   {
     q: '¿Hacen envíos?',
-    a: 'Sí, realizamos envíos a toda la república. Consulta costos y tiempos de entrega por WhatsApp o en nuestra sucursal.',
+    a: 'Sí, realizamos envíos a todo el Perú. Consulta costos y tiempos de entrega por WhatsApp o en nuestra sucursal.',
   },
   {
     q: '¿Manejan precios de mayoreo?',
@@ -78,19 +77,19 @@ const faqs = [
   description={site.description}
 >
   <!-- HERO -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image:url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;)"></div>
+  <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image:url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;)"></div>
     <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
       <div class="max-w-2xl">
-        <span class="inline-block rounded-full bg-cyan-100 px-4 py-1.5 text-sm font-semibold text-cyan-700 mb-6">
+        <span class="inline-block rounded-full bg-cyan-100 px-4 py-1.5 text-sm font-semibold text-cyan-700 mb-6 dark:bg-cyan-900/50 dark:text-cyan-300">
           Catálogo de productos
         </span>
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl dark:text-white">
           Válvulas, conexiones y
           <span class="text-cyan-500">accesorios</span>
           de calidad
         </h1>
-        <p class="mt-6 text-lg text-gray-600 leading-relaxed sm:text-xl">
+        <p class="mt-6 text-lg text-gray-600 leading-relaxed sm:text-xl dark:text-gray-300">
           Encuentra todo lo que necesitas para tus instalaciones hidráulicas y sanitarias.
           Marcas líderes, asesoría experta y atención personalizada.
         </p>
@@ -105,7 +104,7 @@ const faqs = [
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 active:scale-[0.98]"
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 active:scale-[0.98] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-gray-700"
           >
             <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -117,23 +116,8 @@ const faqs = [
     </div>
   </section>
 
-  <!-- CATEGORIAS -->
-  <section class="py-16 sm:py-20" id="categorias">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <SectionHeading
-        title="Nuestras Categorías"
-        subtitle="Explora nuestro catálogo organizado por tipo de producto para encontrar exactamente lo que buscas."
-      />
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        {categories.map(cat => (
-          <CategoryCard category={cat} />
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- PRODUCTOS DESTACADOS -->
-  <section class="bg-gray-50 py-16 sm:py-20">
+  <section class="bg-gray-50 py-16 sm:py-20 dark:bg-gray-800/50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Productos Destacados"
@@ -147,7 +131,7 @@ const faqs = [
       <div class="mt-10 text-center">
         <a
           href="/productos"
-          class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:text-cyan-600 active:scale-[0.98]"
+          class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:text-cyan-600 active:scale-[0.98] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-cyan-600 dark:hover:text-cyan-400"
         >
           Ver todos los productos
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
@@ -165,10 +149,10 @@ const faqs = [
       />
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {benefits.map(b => (
-          <div class="rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50">
-            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600" set:html={b.icon} />
-            <h3 class="mt-4 text-base font-semibold text-gray-900">{b.title}</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">{b.description}</p>
+          <div class="rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-700 dark:hover:shadow-cyan-900/20">
+            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400" set:html={b.icon} />
+            <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-white">{b.title}</h3>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed dark:text-gray-400">{b.description}</p>
           </div>
         ))}
       </div>
@@ -176,7 +160,7 @@ const faqs = [
   </section>
 
   <!-- MARCAS -->
-  <section class="border-y border-gray-200 bg-gray-50 py-16 sm:py-20">
+  <section class="border-y border-gray-200 bg-gray-50 py-16 sm:py-20 dark:border-gray-700 dark:bg-gray-800/50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Marcas que Respaldamos"
@@ -184,8 +168,8 @@ const faqs = [
       />
       <div class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-8">
         {brands.map(brand => (
-          <div class="flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-cyan-200 hover:shadow-sm">
-            <div class="flex h-12 w-full items-center justify-center text-sm font-bold text-gray-400" aria-label={`Logo de ${brand.name}`}>
+          <div class="flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-cyan-200 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-700">
+            <div class="flex h-12 w-full items-center justify-center text-sm font-bold text-gray-400 dark:text-gray-500" aria-label={`Logo de ${brand.name}`}>
               {brand.name}
             </div>
           </div>
@@ -194,8 +178,81 @@ const faqs = [
     </div>
   </section>
 
+  <!-- QUIÉNES SOMOS -->
+  <section class="py-16 sm:py-20" id="nosotros">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <span class="inline-block rounded-full bg-cyan-100 px-4 py-1.5 text-sm font-semibold text-cyan-700 mb-4 dark:bg-cyan-900/50 dark:text-cyan-300">
+            Quiénes Somos
+          </span>
+          <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">
+            Tu socio confiable en soluciones hidráulicas
+          </h2>
+          <p class="mt-4 text-lg text-gray-600 leading-relaxed dark:text-gray-300">
+            En <strong class="text-gray-900 dark:text-white">Grupo HCN</strong> nos especializamos en la distribución de válvulas,
+            conexiones y accesorios de alta calidad para instalaciones hidráulicas y sanitarias.
+          </p>
+          <p class="mt-4 text-gray-600 leading-relaxed dark:text-gray-400">
+            Con años de experiencia en el mercado peruano, nos hemos consolidado como un referente
+            en el sector gracias a nuestro compromiso con la calidad, la variedad de productos
+            y la atención personalizada que brindamos a cada cliente.
+          </p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+              <svg class="h-5 w-5 text-cyan-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Más de 200 productos en stock permanente
+            </li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+              <svg class="h-5 w-5 text-cyan-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Marcas reconocidas con garantía del fabricante
+            </li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+              <svg class="h-5 w-5 text-cyan-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Envíos a todo el Perú
+            </li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+              <svg class="h-5 w-5 text-cyan-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Asesoría técnica especializada
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-6">
+          <!-- Misión -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 transition-all duration-300 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-700 dark:hover:shadow-cyan-900/20">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Nuestra Misión</h3>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed dark:text-gray-300">
+              Proveer soluciones integrales en válvulas, conexiones y accesorios hidráulicos de alta calidad,
+              garantizando un servicio confiable y asesoría técnica especializada que respalde cada proyecto
+              de nuestros clientes en todo el Perú.
+            </p>
+          </div>
+          <!-- Visión -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 transition-all duration-300 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-700 dark:hover:shadow-cyan-900/20">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Nuestra Visión</h3>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed dark:text-gray-300">
+              Ser la empresa líder en distribución de productos para el control y solución de agua en el mercado
+              peruano, reconocida por la excelencia en calidad, innovación constante y compromiso con el
+              desarrollo sostenible de infraestructura hidráulica.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TESTIMONIOS -->
-  <section class="py-16 sm:py-20">
+  <section class="bg-gray-50 py-16 sm:py-20 dark:bg-gray-800/50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Lo Que Dicen Nuestros Clientes"
@@ -203,13 +260,13 @@ const faqs = [
       />
       <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         {testimonials.map(t => (
-          <blockquote class="flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-md">
-            <svg class="mb-3 h-8 w-8 text-cyan-200" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
-            <p class="flex-1 text-sm text-gray-600 leading-relaxed">{t.text}</p>
-            <footer class="mt-4 border-t border-gray-100 pt-4">
+          <blockquote class="flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-lg dark:hover:shadow-gray-900/50">
+            <svg class="mb-3 h-8 w-8 text-cyan-200 dark:text-cyan-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+            <p class="flex-1 text-sm text-gray-600 leading-relaxed dark:text-gray-300">{t.text}</p>
+            <footer class="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
               <cite class="not-italic">
-                <span class="block text-sm font-semibold text-gray-900">{t.name}</span>
-                <span class="text-xs text-gray-500">{t.role}</span>
+                <span class="block text-sm font-semibold text-gray-900 dark:text-white">{t.name}</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">{t.role}</span>
               </cite>
             </footer>
           </blockquote>
@@ -219,7 +276,7 @@ const faqs = [
   </section>
 
   <!-- FAQ -->
-  <section class="bg-gray-50 py-16 sm:py-20">
+  <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <SectionHeading
         title="Preguntas Frecuentes"
@@ -227,12 +284,12 @@ const faqs = [
       />
       <div class="space-y-3">
         {faqs.map(faq => (
-          <details class="group rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:border-cyan-200 open:border-cyan-200 open:shadow-sm">
-            <summary class="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-semibold text-gray-900 marker:content-none">
+          <details class="group rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:border-cyan-200 open:border-cyan-200 open:shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-700 dark:open:border-cyan-700">
+            <summary class="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-semibold text-gray-900 marker:content-none dark:text-white">
               {faq.q}
-              <svg class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+              <svg class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200 group-open:rotate-180 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
             </summary>
-            <p class="px-6 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+            <p class="px-6 pb-4 text-sm text-gray-500 leading-relaxed dark:text-gray-400">{faq.a}</p>
           </details>
         ))}
       </div>
@@ -240,7 +297,7 @@ const faqs = [
   </section>
 
   <!-- CTA FINAL -->
-  <section class="bg-gray-900 py-16 sm:py-20">
+  <section class="bg-gray-900 py-16 sm:py-20 dark:bg-gray-950">
     <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-white sm:text-3xl">
         ¿Listo para cotizar tu proyecto?
@@ -272,49 +329,47 @@ const faqs = [
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div class="space-y-6">
           <div class="flex items-start gap-4">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
               <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Dirección</h3>
-              <p class="mt-1 text-sm text-gray-500">{site.address}</p>
+              <h3 class="font-semibold text-gray-900 dark:text-white">Dirección</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{site.address}</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
               <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Teléfono</h3>
-              <p class="mt-1 text-sm text-gray-500"><a href={`tel:${site.phone}`} class="hover:text-cyan-600 transition-colors">{site.phoneDisplay}</a></p>
+              <h3 class="font-semibold text-gray-900 dark:text-white">Teléfono</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><a href={`tel:${site.phone}`} class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">{site.phoneDisplay}</a></p>
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
               <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Horario</h3>
-              <p class="mt-1 text-sm text-gray-500">{site.schedule}</p>
+              <h3 class="font-semibold text-gray-900 dark:text-white">Horario</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{site.schedule}</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
               <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900">Email</h3>
-              <p class="mt-1 text-sm text-gray-500"><a href={`mailto:${site.email}`} class="hover:text-cyan-600 transition-colors">{site.email}</a></p>
+              <h3 class="font-semibold text-gray-900 dark:text-white">Email</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><a href={`mailto:${site.email}`} class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">{site.email}</a></p>
             </div>
           </div>
         </div>
-
-        <!-- Map placeholder -->
-        <div class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center min-h-[300px]">
+        <div class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center min-h-[300px] dark:border-gray-600 dark:bg-gray-800">
           <div>
-            <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
+            <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
             <p class="mt-3 text-sm text-gray-400">Espacio reservado para mapa interactivo</p>
-            <p class="text-xs text-gray-300 mt-1">Google Maps / OpenStreetMap</p>
+            <p class="text-xs text-gray-300 dark:text-gray-500 mt-1">Google Maps / OpenStreetMap</p>
           </div>
         </div>
       </div>

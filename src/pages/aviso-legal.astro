@@ -1,17 +1,153 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 ---
 
 <BaseLayout
   title="Aviso Legal"
-  description="Aviso legal y descargo de responsabilidad de Grupo HCN."
+  description="Aviso legal e información corporativa de Grupo HCN. Identificación del titular del sitio web y responsabilidades."
 >
-  <section class="py-16 sm:py-20">
+  <!-- Breadcrumb -->
+  <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li aria-hidden="true">/</li>
+      <li class="font-medium text-gray-900 dark:text-white">Aviso Legal</li>
+    </ol>
+  </nav>
+
+  <section class="py-12 sm:py-16">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">Aviso Legal</h1>
-      <div class="mt-8 text-sm text-gray-600 leading-relaxed space-y-4">
-        <p>Esta página es un placeholder. Aquí se debe incluir el aviso legal correspondiente.</p>
-        <p>Contenido pendiente de redacción legal.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Aviso Legal</h1>
+      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Última actualización: Febrero 2026</p>
+
+      <div class="mt-8 space-y-8 text-sm text-gray-600 leading-relaxed dark:text-gray-300">
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">1. Identificación del Titular</h2>
+          <p class="mt-3">
+            En cumplimiento de la normativa peruana vigente, se informa que el presente sitio web es titularidad de:
+          </p>
+          <div class="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+            <ul class="space-y-2">
+              <li><strong class="text-gray-900 dark:text-white">Denominación:</strong> {site.name}</li>
+              <li><strong class="text-gray-900 dark:text-white">RUC:</strong> [Pendiente de configuración]</li>
+              <li><strong class="text-gray-900 dark:text-white">Domicilio:</strong> {site.address}</li>
+              <li><strong class="text-gray-900 dark:text-white">Teléfono:</strong> {site.phoneDisplay}</li>
+              <li><strong class="text-gray-900 dark:text-white">Correo electrónico:</strong> <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">{site.email}</a></li>
+              <li><strong class="text-gray-900 dark:text-white">Actividad:</strong> Distribución de válvulas, conexiones y accesorios para instalaciones hidráulicas y sanitarias</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">2. Objeto del Sitio Web</h2>
+          <p class="mt-3">
+            El presente sitio web tiene como finalidad principal proporcionar información sobre los productos y servicios ofrecidos por {site.name}. El sitio funciona como un catálogo informativo y no como plataforma de comercio electrónico.
+          </p>
+          <p class="mt-3">
+            A través del sitio web, los usuarios pueden:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Consultar información sobre nuestros productos.</li>
+            <li>Conocer las características y especificaciones técnicas de los productos.</li>
+            <li>Contactar con la empresa para solicitar cotizaciones.</li>
+            <li>Acceder al Libro de Reclamaciones virtual.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">3. Condiciones de Acceso</h2>
+          <p class="mt-3">
+            El acceso al sitio web es libre y gratuito. No se requiere registro previo para navegar por el catálogo de productos. El mero acceso al sitio web implica la aceptación de las presentes condiciones legales, así como de nuestra <a href="/politica-privacidad" class="text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y <a href="/terminos" class="text-cyan-600 hover:underline dark:text-cyan-400">Términos y Condiciones</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">4. Propiedad Intelectual e Industrial</h2>
+          <p class="mt-3">
+            Todos los contenidos del sitio web (textos, imágenes, gráficos, logotipos, iconos, fotografías, diseño, estructura de navegación, código fuente y demás elementos) son propiedad de {site.name} o de terceros que han autorizado su uso, y están protegidos por las leyes de propiedad intelectual e industrial de la República del Perú, incluyendo:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Decreto Legislativo N° 822 - Ley sobre el Derecho de Autor</li>
+            <li>Decreto Legislativo N° 1075 - Ley de Propiedad Industrial</li>
+            <li>Convenios internacionales suscritos por el Perú</li>
+          </ul>
+          <p class="mt-3">
+            Queda expresamente prohibida la reproducción, distribución, comunicación pública o transformación de los contenidos sin autorización expresa y por escrito del titular.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">5. Exclusión de Responsabilidad</h2>
+          <p class="mt-3">
+            {site.name} no se hace responsable de:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li>Los daños o perjuicios que puedan derivarse de interferencias, omisiones, interrupciones, virus informáticos, averías telefónicas o desconexiones en el funcionamiento del sistema.</li>
+            <li>Los retrasos o bloqueos en el uso causados por deficiencias o sobrecargas de Internet u otros sistemas electrónicos.</li>
+            <li>El uso inadecuado del sitio web por parte de terceros.</li>
+            <li>La información contenida en sitios web de terceros enlazados desde este sitio.</li>
+            <li>Posibles errores de seguridad que puedan producirse por el uso de navegadores desactualizados.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">6. Información de Productos</h2>
+          <p class="mt-3">
+            La información sobre productos que se muestra en el sitio web tiene carácter orientativo e informativo. {site.name} no garantiza la exactitud, integridad o actualización de dicha información.
+          </p>
+          <p class="mt-3">
+            Las características, especificaciones, precios y disponibilidad de los productos pueden variar sin previo aviso. Para obtener información actualizada y precisa, se recomienda contactar directamente con nuestro equipo comercial.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">7. Enlaces (Links)</h2>
+          <p class="mt-3">
+            El sitio web puede contener enlaces a sitios web de terceros. {site.name} no controla ni es responsable del contenido, políticas de privacidad o prácticas de sitios web de terceros.
+          </p>
+          <p class="mt-3">
+            Asimismo, {site.name} no autoriza la inclusión de enlaces a este sitio web desde páginas que contengan materiales ilícitos, degradantes, obscenos o que contravengan la moral, el orden público o las normas sociales.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">8. Protección al Consumidor</h2>
+          <p class="mt-3">
+            {site.name} cumple con las disposiciones del Código de Protección y Defensa del Consumidor (Ley N° 29571). Los usuarios tienen a su disposición:
+          </p>
+          <ul class="mt-3 list-disc pl-5 space-y-2">
+            <li><a href="/libro-reclamaciones" class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones Virtual</a> para presentar quejas y reclamos.</li>
+            <li>Atención personalizada a través de nuestros canales de contacto.</li>
+            <li>Respuesta a reclamos en un plazo máximo de 30 días calendario.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">9. Modificaciones</h2>
+          <p class="mt-3">
+            {site.name} se reserva el derecho de modificar el contenido del sitio web, así como el presente Aviso Legal, en cualquier momento y sin previo aviso. Los cambios serán publicados en esta página.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">10. Legislación Aplicable y Jurisdicción</h2>
+          <p class="mt-3">
+            El presente Aviso Legal se rige por la legislación de la República del Perú. Para cualquier controversia que pudiera derivarse del acceso o uso del sitio web, las partes se someten a la jurisdicción de los Juzgados y Tribunales de Lima, Perú, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, salvo lo dispuesto por las normas de protección al consumidor vigentes.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">11. Contacto</h2>
+          <p class="mt-3">
+            Para cualquier consulta relacionada con este Aviso Legal, puede contactarnos a través de:
+          </p>
+          <ul class="mt-3 space-y-1">
+            <li><strong class="text-gray-900 dark:text-white">Email:</strong> <a href={`mailto:${site.email}`} class="text-cyan-600 hover:underline dark:text-cyan-400">{site.email}</a></li>
+            <li><strong class="text-gray-900 dark:text-white">Teléfono:</strong> {site.phoneDisplay}</li>
+            <li><strong class="text-gray-900 dark:text-white">Dirección:</strong> {site.address}</li>
+          </ul>
+        </section>
       </div>
     </div>
   </section>

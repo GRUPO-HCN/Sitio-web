@@ -1,4 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#06b6d4"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="18" fill="white">H</text>
+  <g transform="translate(16,16) scale(0.55) translate(-16,-16)">
+    <polygon points="16,3 14.2,7 17.8,7" fill="white"/>
+    <polygon points="13.5,8.5 11,13 21,13 18.5,8.5" fill="white"/>
+    <polygon points="10.2,14.5 7.7,19.5 24.3,19.5 21.8,14.5" fill="white"/>
+    <polygon points="7,21 4,27 28,27 25,21" fill="white"/>
+  </g>
 </svg>

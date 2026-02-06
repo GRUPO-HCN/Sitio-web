@@ -1,12 +1,12 @@
 export const site = {
   name: 'Grupo HCN',
-  tagline: 'Válvulas, Conexiones y Accesorios',
+  tagline: 'Especialistas en solución y control de agua',
   description: 'Catálogo de productos de ferretería especializada en válvulas, conexiones, tuberías y accesorios para instalaciones hidráulicas y sanitarias.',
   url: 'https://grupohcn.com',
   phone: '+51900452663',
   phoneDisplay: '900 452 663',
   email: 'contacto@grupohcn.com',
-  address: 'Av. Industrial #456, Col. Centro, CDMX, México',
+  address: 'Lima, Perú',
   schedule: 'Lunes a Viernes: 8:00 - 18:00 | Sábados: 9:00 - 14:00',
   whatsapp: {
     number: '51900452663',

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ── Tailwind v4: Enable class-based dark mode ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ── Design tokens ── */
 @theme {
   --color-cyan-50: #ecfeff;
@@ -12,6 +15,7 @@
   --color-cyan-700: #0e7490;
   --color-cyan-800: #155e75;
   --color-cyan-900: #164e63;
+  --color-cyan-950: #083344;
   --color-primary: #06b6d4;
   --color-primary-dark: #0891b2;
   --color-primary-light: #22d3ee;
@@ -40,6 +44,26 @@
 
   body {
     @apply bg-white text-gray-900 font-sans antialiased;
+  }
+
+  html.dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+/* ── Theme transition styles ── */
+@layer components {
+  /* Smooth theme transitions */
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.2s ease,
+                fill 0.2s ease,
+                stroke 0.2s ease,
+                box-shadow 0.3s ease !important;
   }
 }
 
