@@ -5,7 +5,7 @@ import ProductCard from '../../components/ProductCard.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Pagination from '../../components/Pagination.astro';
 import { products, categories, brands, getUniqueMaterials, getUniqueSizes } from '../../data/products';
-import { site } from '../../data/site';
+import { site, url } from '../../data/site';
 
 export const getStaticPaths = (async ({ paginate }) => {
   return paginate(products, { pageSize: 20 });
@@ -28,6 +28,7 @@ const prevUrl = currentPage > 1
 const nextUrl = currentPage < lastPage
   ? `${site.url}/productos/${currentPage + 1}/`
   : undefined;
+// site.url already includes the base path (/Sitio-web)
 
 const pageTitle = currentPage === 1
   ? 'Catálogo de Productos'
@@ -47,7 +48,7 @@ const pageDesc = currentPage === 1
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors">Inicio</a></li>
       <li aria-hidden="true">/</li>
       <li class="font-medium text-gray-900">Productos</li>
       {currentPage > 1 && (
@@ -140,7 +141,7 @@ const pageDesc = currentPage === 1
       </div>
 
       <!-- Pagination -->
-      <Pagination currentPage={currentPage} lastPage={lastPage} baseUrl="/productos" />
+      <Pagination currentPage={currentPage} lastPage={lastPage} baseUrl={url('/productos')} />
     </div>
   </section>
 </BaseLayout>

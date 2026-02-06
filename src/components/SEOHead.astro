@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 
 interface Props {
   title: string;
@@ -32,7 +32,7 @@ const absoluteImage = new URL(image, site.url).href;
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 <meta name="generator" content={Astro.generator} />
-<link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+<link rel="icon" type="image/jpeg" href={url('/favicon.jpg')} />
 {prev && <link rel="prev" href={prev} />}
 {next && <link rel="next" href={next} />}
 

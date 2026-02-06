@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { categories, getProductsByCategory, brands } from '../../data/products';
-import { whatsappLink } from '../../data/site';
+import { whatsappLink, url } from '../../data/site';
 
 export function getStaticPaths() {
   return categories.map(c => ({
@@ -28,9 +28,9 @@ const catBrands = [...new Set(categoryProducts.map(p => p.brandId))].map(id => b
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors">Inicio</a></li>
       <li aria-hidden="true">/</li>
-      <li><a href="/productos" class="hover:text-cyan-600 transition-colors">Productos</a></li>
+      <li><a href={url('/productos')} class="hover:text-cyan-600 transition-colors">Productos</a></li>
       <li aria-hidden="true">/</li>
       <li class="font-medium text-gray-900">{category.name}</li>
     </ol>

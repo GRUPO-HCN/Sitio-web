@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { site, whatsappLink } from '../data/site';
+import { site, whatsappLink, url } from '../data/site';
 import { getFeaturedProducts, brands } from '../data/products';
 
 const featured = getFeaturedProducts().slice(0, 8);
@@ -95,7 +95,7 @@ const faqs = [
         </p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
-            href="/productos"
+            href={url('/productos')}
             class="inline-flex items-center justify-center rounded-lg bg-cyan-500 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 hover:bg-cyan-600 hover:shadow-md active:scale-[0.98]"
           >
             Ver catálogo
@@ -130,7 +130,7 @@ const faqs = [
       </div>
       <div class="mt-10 text-center">
         <a
-          href="/productos"
+          href={url('/productos')}
           class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:text-cyan-600 active:scale-[0.98] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-cyan-600 dark:hover:text-cyan-400"
         >
           Ver todos los productos

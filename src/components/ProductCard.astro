@@ -1,6 +1,7 @@
 ---
 import type { Product } from '../data/products';
 import { getBrandById } from '../data/products';
+import { url } from '../data/site';
 
 interface Props {
   product: Product;
@@ -22,7 +23,7 @@ const brand = getBrandById(product.brandId);
   </div>
 
   <!-- Image -->
-  <a href={`/productos/${product.slug}`} class="block aspect-square overflow-hidden bg-gray-50 dark:bg-gray-700/50">
+  <a href={url(`/productos/${product.slug}`)} class="block aspect-square overflow-hidden bg-gray-50 dark:bg-gray-700/50">
     <img
       src={product.images[0]}
       alt={product.name}
@@ -39,7 +40,7 @@ const brand = getBrandById(product.brandId);
       <span class="mb-1 text-xs font-medium uppercase tracking-wider text-cyan-600 dark:text-cyan-400">{brand.name}</span>
     )}
     <h3 class="text-sm font-semibold text-gray-900 leading-snug dark:text-white">
-      <a href={`/productos/${product.slug}`} class="after:absolute after:inset-0">
+      <a href={url(`/productos/${product.slug}`)} class="after:absolute after:inset-0">
         {product.name}
       </a>
     </h3>

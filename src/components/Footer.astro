@@ -1,22 +1,24 @@
 ---
 import { Image } from 'astro:assets';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 import piramideLogo from '../assets/images/piramide.jpg';
 
+const vcHref = url('/productos-valvulas-conexiones');
+
 const valvulasConexiones = [
-  { name: 'Abrazaderas', href: '/productos-valvulas-conexiones' },
-  { name: 'Accesorios', href: '/productos-valvulas-conexiones' },
-  { name: 'Acoples - Juntas Mecánicas', href: '/productos-valvulas-conexiones' },
-  { name: 'Bridas, Rompe Agua, Ciegas y Otros', href: '/productos-valvulas-conexiones' },
-  { name: 'Canastillas y Filtro', href: '/productos-valvulas-conexiones' },
-  { name: 'Grifos contra Incendio', href: '/productos-valvulas-conexiones' },
-  { name: 'Línea HDPE', href: '/productos-valvulas-conexiones' },
-  { name: 'Línea PVC', href: '/productos-valvulas-conexiones' },
-  { name: 'M&L Negofer SAC', href: '/productos-valvulas-conexiones' },
-  { name: 'Marco y Tapas', href: '/productos-valvulas-conexiones' },
-  { name: 'Medidores', href: '/productos-valvulas-conexiones' },
-  { name: 'Tuberías', href: '/productos-valvulas-conexiones' },
-  { name: 'Válvulas', href: '/productos-valvulas-conexiones' },
+  { name: 'Abrazaderas', href: vcHref },
+  { name: 'Accesorios', href: vcHref },
+  { name: 'Acoples - Juntas Mecánicas', href: vcHref },
+  { name: 'Bridas, Rompe Agua, Ciegas y Otros', href: vcHref },
+  { name: 'Canastillas y Filtro', href: vcHref },
+  { name: 'Grifos contra Incendio', href: vcHref },
+  { name: 'Línea HDPE', href: vcHref },
+  { name: 'Línea PVC', href: vcHref },
+  { name: 'M&L Negofer SAC', href: vcHref },
+  { name: 'Marco y Tapas', href: vcHref },
+  { name: 'Medidores', href: vcHref },
+  { name: 'Tuberías', href: vcHref },
+  { name: 'Válvulas', href: vcHref },
 ];
 ---
 
@@ -26,7 +28,7 @@ const valvulasConexiones = [
 
       <!-- Brand -->
       <div class="lg:col-span-3">
-        <a href="/" class="inline-flex items-center gap-2" aria-label={`${site.name} - Inicio`}>
+        <a href={url('/')} class="inline-flex items-center gap-2" aria-label={`${site.name} - Inicio`}>
           <div class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-gray-100 dark:ring-gray-700">
             <Image
               src={piramideLogo}
@@ -66,13 +68,13 @@ const valvulasConexiones = [
           Acero Inoxidable
         </h3>
         <ul class="mt-3 space-y-1.5">
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Válvulas</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Accesorios</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Bombas</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Conexiones</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Tuberías</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Instrumentación</a></li>
-          <li><a href="/productos-acero-inoxidable" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Línea Sanitaria</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Válvulas</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Accesorios</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Bombas</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Conexiones</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Tuberías</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Instrumentación</a></li>
+          <li><a href={url('/productos-acero-inoxidable')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Línea Sanitaria</a></li>
         </ul>
       </div>
 
@@ -99,10 +101,10 @@ const valvulasConexiones = [
       <div class="lg:col-span-2">
         <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">Legal</h3>
         <ul class="mt-3 space-y-2">
-          <li><a href="/politica-privacidad" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Política de Privacidad</a></li>
-          <li><a href="/terminos" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Términos y Condiciones</a></li>
-          <li><a href="/aviso-legal" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Aviso Legal</a></li>
-          <li><a href="/libro-reclamaciones" class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Libro de Reclamaciones</a></li>
+          <li><a href={url('/politica-privacidad')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Política de Privacidad</a></li>
+          <li><a href={url('/terminos')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Términos y Condiciones</a></li>
+          <li><a href={url('/aviso-legal')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Aviso Legal</a></li>
+          <li><a href={url('/libro-reclamaciones')} class="text-sm text-gray-500 transition-colors hover:text-cyan-600 dark:text-gray-400 dark:hover:text-cyan-400">Libro de Reclamaciones</a></li>
         </ul>
       </div>
     </div>

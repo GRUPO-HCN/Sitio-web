@@ -1,8 +1,15 @@
+/** Prefix an internal path with the configured base URL so links work on GitHub Pages */
+export function url(path: string): string {
+  const base = import.meta.env.BASE_URL; // e.g. '/Sitio-web/'
+  if (path === '/' || path === '') return base;
+  return base + path.replace(/^\//, '');
+}
+
 export const site = {
   name: 'Grupo HCN',
   tagline: 'Especialistas en solución y control de agua',
   description: 'Catálogo de productos de ferretería especializada en válvulas, conexiones, tuberías y accesorios para instalaciones hidráulicas y sanitarias.',
-  url: 'https://grupohcn.com',
+  url: 'https://GRUPO-HCN.github.io/Sitio-web',
   phone: '+51900452663',
   phoneDisplay: '900 452 663',
   email: 'contacto@grupohcn.com',

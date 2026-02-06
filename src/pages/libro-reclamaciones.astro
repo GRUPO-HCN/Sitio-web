@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 ---
 
 <BaseLayout
@@ -10,7 +10,7 @@ import { site } from '../data/site';
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-4xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
       <li aria-hidden="true">/</li>
       <li class="font-medium text-gray-900 dark:text-white">Libro de Reclamaciones</li>
     </ol>
@@ -198,7 +198,7 @@ import { site } from '../data/site';
           <div class="space-y-3">
             <label class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
               <input type="checkbox" name="acepto-terminos" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
-              <span>He leído y acepto la <a href="/politica-privacidad" class="font-medium text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales.</span>
+              <span>He leído y acepto la <a href={url('/politica-privacidad')} class="font-medium text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales.</span>
             </label>
             <label class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
               <input type="checkbox" name="acepto-veracidad" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />

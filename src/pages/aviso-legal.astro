@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 ---
 
 <BaseLayout
@@ -10,7 +10,7 @@ import { site } from '../data/site';
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
       <li aria-hidden="true">/</li>
       <li class="font-medium text-gray-900 dark:text-white">Aviso Legal</li>
     </ol>
@@ -58,7 +58,7 @@ import { site } from '../data/site';
         <section>
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">3. Condiciones de Acceso</h2>
           <p class="mt-3">
-            El acceso al sitio web es libre y gratuito. No se requiere registro previo para navegar por el catálogo de productos. El mero acceso al sitio web implica la aceptación de las presentes condiciones legales, así como de nuestra <a href="/politica-privacidad" class="text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y <a href="/terminos" class="text-cyan-600 hover:underline dark:text-cyan-400">Términos y Condiciones</a>.
+            El acceso al sitio web es libre y gratuito. No se requiere registro previo para navegar por el catálogo de productos. El mero acceso al sitio web implica la aceptación de las presentes condiciones legales, así como de nuestra <a href={url('/politica-privacidad')} class="text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y <a href={url('/terminos')} class="text-cyan-600 hover:underline dark:text-cyan-400">Términos y Condiciones</a>.
           </p>
         </section>
 
@@ -117,7 +117,7 @@ import { site } from '../data/site';
             {site.name} cumple con las disposiciones del Código de Protección y Defensa del Consumidor (Ley N° 29571). Los usuarios tienen a su disposición:
           </p>
           <ul class="mt-3 list-disc pl-5 space-y-2">
-            <li><a href="/libro-reclamaciones" class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones Virtual</a> para presentar quejas y reclamos.</li>
+            <li><a href={url('/libro-reclamaciones')} class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones Virtual</a> para presentar quejas y reclamos.</li>
             <li>Atención personalizada a través de nuestros canales de contacto.</li>
             <li>Respuesta a reclamos en un plazo máximo de 30 días calendario.</li>
           </ul>

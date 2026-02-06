@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, url } from '../data/site';
 ---
 
 <BaseLayout
@@ -10,7 +10,7 @@ import { site } from '../data/site';
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors dark:hover:text-cyan-400">Inicio</a></li>
       <li aria-hidden="true">/</li>
       <li class="font-medium text-gray-900 dark:text-white">Términos y Condiciones</li>
     </ol>
@@ -108,7 +108,7 @@ import { site } from '../data/site';
         <section>
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">9. Protección al Consumidor</h2>
           <p class="mt-3">
-            Conforme al Código de Protección y Defensa del Consumidor (Ley N° 29571), ponemos a su disposición nuestro <a href="/libro-reclamaciones" class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones</a> para que pueda registrar cualquier queja o reclamo.
+            Conforme al Código de Protección y Defensa del Consumidor (Ley N° 29571), ponemos a su disposición nuestro <a href={url('/libro-reclamaciones')} class="text-cyan-600 hover:underline dark:text-cyan-400">Libro de Reclamaciones</a> para que pueda registrar cualquier queja o reclamo.
           </p>
         </section>
 

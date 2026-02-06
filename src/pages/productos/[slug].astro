@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import { products, getBrandById, getCategoryBySlug, getRelatedProducts, categories } from '../../data/products';
-import { site, whatsappProductLink } from '../../data/site';
+import { site, whatsappProductLink, url } from '../../data/site';
 
 export function getStaticPaths() {
   return products.map(p => ({
@@ -16,7 +16,7 @@ const { product } = Astro.props;
 const brand = getBrandById(product.brandId);
 const category = categories.find(c => c.id === product.categoryId);
 const related = getRelatedProducts(product, 4);
-const productUrl = `${site.url}/productos/${product.slug}`;
+const productUrl = `${site.url}/productos/${product.slug}/`;
 const waLink = whatsappProductLink(product.name, productUrl);
 ---
 
@@ -28,13 +28,13 @@ const waLink = whatsappProductLink(product.name, productUrl);
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
     <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-500">
-      <li><a href="/" class="hover:text-cyan-600 transition-colors">Inicio</a></li>
+      <li><a href={url('/')} class="hover:text-cyan-600 transition-colors">Inicio</a></li>
       <li aria-hidden="true">/</li>
-      <li><a href="/productos" class="hover:text-cyan-600 transition-colors">Productos</a></li>
+      <li><a href={url('/productos')} class="hover:text-cyan-600 transition-colors">Productos</a></li>
       <li aria-hidden="true">/</li>
       {category && (
         <>
-          <li><a href={`/categorias/${category.slug}`} class="hover:text-cyan-600 transition-colors">{category.name}</a></li>
+          <li><a href={url(`/categorias/${category.slug}`)} class="hover:text-cyan-600 transition-colors">{category.name}</a></li>
           <li aria-hidden="true">/</li>
         </>
       )}
@@ -123,7 +123,7 @@ const waLink = whatsappProductLink(product.name, productUrl);
               Cotizar por WhatsApp
             </a>
             <a
-              href="/productos"
+              href={url('/productos')}
               class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:bg-gray-50 active:scale-[0.98]"
             >
               Ver más productos
