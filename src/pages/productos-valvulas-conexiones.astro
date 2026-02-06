@@ -86,6 +86,9 @@ const allBrands = [...new Set(divisionProducts.map(p => p.brandId))].map(id => b
         <button type="button" id="vc-clear-alt" class="mt-2 text-sm text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300">Limpiar filtros</button>
       </div>
 
+      <!-- Pagination -->
+      <nav class="mt-12 flex items-center justify-center gap-1" aria-label="Paginación" id="vc-pagination"></nav>
+
       <!-- CTA -->
       <div class="mt-16 rounded-xl bg-gray-900 p-8 text-center sm:p-12 dark:bg-gray-950">
         <h2 class="text-xl font-bold text-white sm:text-2xl">¿No encuentras lo que buscas?</h2>
@@ -114,25 +117,96 @@ const allBrands = [...new Set(divisionProducts.map(p => p.brandId))].map(id => b
   const grid = document.getElementById('vc-grid')!;
   const empty = document.getElementById('vc-empty')!;
   const count = document.getElementById('vc-count')!;
-  const items = grid.querySelectorAll<HTMLElement>('.vc-item');
+  const paginationNav = document.getElementById('vc-pagination')!;
+  const items = Array.from(grid.querySelectorAll<HTMLElement>('.vc-item'));
 
-  function filter() {
+  const PAGE_SIZE = 20;
+  let currentPage = 1;
+  let filtered: HTMLElement[] = [];
+
+  function applyFilters() {
     const q = search.value.toLowerCase().trim();
     const b = brand.value;
     const m = material.value;
     const s = size.value;
-    let v = 0;
-    items.forEach(el => {
-      const show =
+    filtered = items.filter(el => {
+      return (
         (!q || (el.dataset.name ?? '').includes(q) || (el.dataset.sku ?? '').includes(q) || (el.dataset.material ?? '').toLowerCase().includes(q)) &&
         (!b || el.dataset.brand === b) &&
         (!m || el.dataset.material === m) &&
-        (!s || el.dataset.size === s);
-      el.style.display = show ? '' : 'none';
-      if (show) v++;
+        (!s || el.dataset.size === s)
+      );
     });
-    empty.classList.toggle('hidden', v > 0);
-    count.textContent = `Mostrando ${v} de ${items.length} productos`;
+    currentPage = 1;
+    render();
+  }
+
+  function render() {
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const visible = filtered.slice(start, end);
+
+    items.forEach(el => el.style.display = 'none');
+    visible.forEach(el => el.style.display = '');
+
+    empty.classList.toggle('hidden', filtered.length > 0);
+    count.textContent = filtered.length === items.length
+      ? `Mostrando ${visible.length} de ${filtered.length} productos · Página ${currentPage} de ${totalPages}`
+      : `${filtered.length} productos encontrados · Página ${currentPage} de ${totalPages}`;
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages: number) {
+    if (totalPages <= 1) { paginationNav.innerHTML = ''; return; }
+
+    const btnBase = 'inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm transition-all duration-200';
+    const btnNormal = `${btnBase} border border-gray-300 bg-white font-medium text-gray-700 hover:border-cyan-300 hover:text-cyan-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-cyan-600 dark:hover:text-cyan-400`;
+    const btnActive = `${btnBase} bg-cyan-500 font-semibold text-white`;
+    const btnDisabled = `${btnBase} border border-gray-200 bg-gray-50 text-gray-300 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-600`;
+
+    const prevSvg = '<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>';
+    const nextSvg = '<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>';
+
+    let html = currentPage > 1
+      ? `<button type="button" class="${btnNormal}" data-page="${currentPage - 1}" aria-label="Página anterior">${prevSvg}</button>`
+      : `<span class="${btnDisabled}" aria-disabled="true">${prevSvg}</span>`;
+
+    const pages = getPageNumbers(currentPage, totalPages);
+    for (const p of pages) {
+      if (p === '...') {
+        html += `<span class="inline-flex h-10 w-10 items-center justify-center text-sm text-gray-400 dark:text-gray-500">...</span>`;
+      } else if (p === currentPage) {
+        html += `<span class="${btnActive}" aria-current="page">${p}</span>`;
+      } else {
+        html += `<button type="button" class="${btnNormal}" data-page="${p}">${p}</button>`;
+      }
+    }
+
+    html += currentPage < totalPages
+      ? `<button type="button" class="${btnNormal}" data-page="${currentPage + 1}" aria-label="Página siguiente">${nextSvg}</button>`
+      : `<span class="${btnDisabled}" aria-disabled="true">${nextSvg}</span>`;
+
+    paginationNav.innerHTML = html;
+    paginationNav.querySelectorAll<HTMLButtonElement>('[data-page]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = Number(btn.dataset.page);
+        render();
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function getPageNumbers(cur: number, last: number): (number | '...')[] {
+    if (last <= 7) return Array.from({ length: last }, (_, i) => i + 1);
+    const pages: (number | '...')[] = [1];
+    if (cur > 3) pages.push('...');
+    for (let i = Math.max(2, cur - 1); i <= Math.min(last - 1, cur + 1); i++) pages.push(i);
+    if (cur < last - 2) pages.push('...');
+    pages.push(last);
+    return pages;
   }
 
   function clear() {
@@ -140,14 +214,14 @@ const allBrands = [...new Set(divisionProducts.map(p => p.brandId))].map(id => b
     brand.value = '';
     material.value = '';
     size.value = '';
-    filter();
+    applyFilters();
   }
 
-  search.addEventListener('input', filter);
-  brand.addEventListener('change', filter);
-  material.addEventListener('change', filter);
-  size.addEventListener('change', filter);
+  search.addEventListener('input', applyFilters);
+  brand.addEventListener('change', applyFilters);
+  material.addEventListener('change', applyFilters);
+  size.addEventListener('change', applyFilters);
   clearBtn?.addEventListener('click', clear);
   clearAlt?.addEventListener('click', clear);
-  filter();
+  applyFilters();
 </script>
