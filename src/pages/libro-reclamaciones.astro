@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, url } from '../data/site';
+
+const today = new Date().toISOString().slice(0, 10);
 ---
 
 <BaseLayout
   title="Libro de Reclamaciones"
-  description="Libro de Reclamaciones virtual de Grupo HCN. Registre sus quejas o reclamos conforme a la normativa peruana de protección al consumidor."
+  description="Libro de Reclamaciones virtual de Grupo HCN. Registre sus quejas o reclamos conforme al D.S. 011-2011-PCM y la Ley N° 29571 de protección al consumidor."
 >
   <!-- Breadcrumb -->
   <nav class="mx-auto max-w-4xl px-4 py-4 sm:px-6 lg:px-8" aria-label="Breadcrumb">
@@ -28,47 +30,110 @@ import { site, url } from '../data/site';
         </div>
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Libro de Reclamaciones</h1>
         <p class="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-          Conforme al Código de Protección y Defensa del Consumidor — Ley N° 29571
+          Conforme al Código de Protección y Defensa del Consumidor — Ley N° 29571 y D.S. 011-2011-PCM
         </p>
       </div>
 
-      <!-- Info box: Reclamo vs Queja -->
-      <div class="mb-10 grid gap-4 sm:grid-cols-2">
-        <div class="rounded-xl border border-cyan-200 bg-cyan-50/50 p-5 dark:border-cyan-800/40 dark:bg-cyan-900/10">
-          <h3 class="text-sm font-semibold text-cyan-800 dark:text-cyan-300">Reclamo</h3>
-          <p class="mt-1 text-sm text-cyan-700 dark:text-cyan-400/80">
-            Disconformidad relacionada a los productos o servicios adquiridos.
+      <!-- Tipo selector: Reclamo / Queja -->
+      <div class="mb-10 grid gap-4 sm:grid-cols-2" id="tipo-selector">
+        <button
+          type="button"
+          data-tipo="reclamo"
+          class="tipo-btn group relative rounded-xl border-2 p-5 text-left transition-all duration-300 border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/10 dark:border-cyan-500"
+          aria-pressed="true"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+            </span>
+            <h3 class="text-base font-semibold text-cyan-800 dark:text-cyan-300">Reclamo</h3>
+          </div>
+          <p class="text-sm text-cyan-700 dark:text-cyan-400/80">
+            Disconformidad relacionada a los productos o servicios adquiridos o contratados.
           </p>
-        </div>
-        <div class="rounded-xl border border-amber-200 bg-amber-50/50 p-5 dark:border-amber-800/40 dark:bg-amber-900/10">
-          <h3 class="text-sm font-semibold text-amber-800 dark:text-amber-300">Queja</h3>
-          <p class="mt-1 text-sm text-amber-700 dark:text-amber-400/80">
-            Disconformidad no relacionada a los productos o servicios, o malestar respecto a la atención al público.
+          <span class="tipo-check absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500 text-white transition-opacity duration-200">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          data-tipo="queja"
+          class="tipo-btn group relative rounded-xl border-2 p-5 text-left transition-all duration-300 border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+          aria-pressed="false"
+        >
+          <div class="flex items-center gap-3 mb-2">
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            </span>
+            <h3 class="text-base font-semibold text-amber-800 dark:text-amber-300">Queja</h3>
+          </div>
+          <p class="text-sm text-amber-700 dark:text-amber-400/80">
+            Malestar o disconformidad respecto a la atención al público, no relacionada al producto o servicio.
           </p>
-        </div>
+          <span class="tipo-check absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-white opacity-0 transition-opacity duration-200">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+        </button>
       </div>
 
       <!-- Form -->
-      <form class="space-y-8" id="complaint-form">
+      <form class="space-y-8" id="complaint-form" novalidate>
+        <!-- Hidden fields -->
+        <input type="hidden" name="tipo" id="tipo-input" value="reclamo" />
+        <input type="hidden" name="fecha" id="fecha-input" value={today} />
 
-        <!-- Section 1: Consumer identification -->
+        <!-- Section: Identification header with auto number + date -->
+        <div class="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-gray-50 px-5 py-3 text-sm dark:bg-gray-800/60">
+          <div class="flex items-center gap-4">
+            <span class="text-gray-500 dark:text-gray-400">N° de Hoja: <strong class="text-gray-700 dark:text-gray-300" id="hoja-num">001-000001</strong></span>
+          </div>
+          <div>
+            <span class="text-gray-500 dark:text-gray-400">Fecha: <strong class="text-gray-700 dark:text-gray-300" id="fecha-display">{today}</strong></span>
+          </div>
+        </div>
+
+        <!-- Section 1: Provider (read-only) -->
         <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
-          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">1. Identificación del Consumidor</legend>
+          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">1. Identificación del Proveedor</legend>
+          <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 text-sm">
+            <div>
+              <span class="block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">Razón Social</span>
+              <p class="mt-1 text-gray-900 dark:text-white font-medium">{site.name}</p>
+            </div>
+            <div>
+              <span class="block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">RUC</span>
+              <p class="mt-1 text-gray-900 dark:text-white font-medium">—</p>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">Dirección</span>
+              <p class="mt-1 text-gray-900 dark:text-white font-medium">{site.address}</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Consumer -->
+        <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">2. Identificación del Consumidor</legend>
 
           <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
             <div>
-              <label for="nombres" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombres <span class="text-red-500">*</span></label>
-              <input type="text" id="nombres" name="nombres" required placeholder="Ej. Juan Carlos"
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
+              <label for="nombres" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombres <span class="text-red-500" aria-hidden="true">*</span></label>
+              <input type="text" id="nombres" name="nombres" required autocomplete="given-name" placeholder="Ej. Juan Carlos"
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                aria-describedby="nombres-error" />
+              <p class="mt-1 hidden text-xs text-red-500" id="nombres-error" role="alert">Ingrese sus nombres.</p>
             </div>
             <div>
-              <label for="apellidos" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Apellidos <span class="text-red-500">*</span></label>
-              <input type="text" id="apellidos" name="apellidos" required placeholder="Ej. Pérez García"
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
+              <label for="apellidos" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Apellidos <span class="text-red-500" aria-hidden="true">*</span></label>
+              <input type="text" id="apellidos" name="apellidos" required autocomplete="family-name" placeholder="Ej. Pérez García"
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                aria-describedby="apellidos-error" />
+              <p class="mt-1 hidden text-xs text-red-500" id="apellidos-error" role="alert">Ingrese sus apellidos.</p>
             </div>
             <div>
-              <label for="documento-tipo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de documento <span class="text-red-500">*</span></label>
-              <select id="documento-tipo" name="documento-tipo" required
+              <label for="doc-tipo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de documento <span class="text-red-500" aria-hidden="true">*</span></label>
+              <select id="doc-tipo" name="doc-tipo" required
                 class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20">
                 <option value="">Seleccionar...</option>
                 <option value="dni">DNI</option>
@@ -78,23 +143,29 @@ import { site, url } from '../data/site';
               </select>
             </div>
             <div>
-              <label for="documento-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300">N° de documento <span class="text-red-500">*</span></label>
-              <input type="text" id="documento-numero" name="documento-numero" required placeholder="Ej. 70123456"
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
+              <label for="doc-numero" class="block text-sm font-medium text-gray-700 dark:text-gray-300">N° de documento <span class="text-red-500" aria-hidden="true">*</span></label>
+              <input type="text" id="doc-numero" name="doc-numero" required placeholder="Ej. 70123456" inputmode="numeric"
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                aria-describedby="doc-numero-error" />
+              <p class="mt-1 hidden text-xs text-red-500" id="doc-numero-error" role="alert">Ingrese su número de documento.</p>
+            </div>
+            <div>
+              <label for="telefono" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Teléfono <span class="text-red-500" aria-hidden="true">*</span></label>
+              <input type="tel" id="telefono" name="telefono" required autocomplete="tel" placeholder="Ej. 987 654 321"
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                aria-describedby="telefono-error" />
+              <p class="mt-1 hidden text-xs text-red-500" id="telefono-error" role="alert">Ingrese su teléfono.</p>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Correo electrónico <span class="text-red-500" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="correo@ejemplo.com"
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                aria-describedby="email-error" />
+              <p class="mt-1 hidden text-xs text-red-500" id="email-error" role="alert">Ingrese un correo válido.</p>
             </div>
             <div class="sm:col-span-2">
-              <label for="direccion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dirección <span class="text-red-500">*</span></label>
-              <input type="text" id="direccion" name="direccion" required placeholder="Av. / Jr. / Calle, distrito, provincia, departamento"
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
-            </div>
-            <div>
-              <label for="telefono" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Teléfono <span class="text-red-500">*</span></label>
-              <input type="tel" id="telefono" name="telefono" required placeholder="Ej. 987 654 321"
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
-            </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Correo electrónico <span class="text-red-500">*</span></label>
-              <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com"
+              <label for="domicilio" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Domicilio</label>
+              <input type="text" id="domicilio" name="domicilio" autocomplete="street-address" placeholder="Av. / Jr. / Calle, distrito, provincia, departamento (opcional si indicó correo)"
                 class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
             </div>
           </div>
@@ -106,56 +177,48 @@ import { site, url } from '../data/site';
               El consumidor es menor de edad
             </label>
           </div>
-
-          <!-- Tutor fields (hidden) -->
-          <div id="tutor-fields" class="mt-5 hidden rounded-xl border border-gray-100 bg-gray-50 p-5 dark:border-gray-700 dark:bg-gray-900/50">
-            <p class="mb-4 text-sm font-medium text-gray-600 dark:text-gray-400">Datos del padre/madre o tutor:</p>
+          <!-- Tutor fields -->
+          <div id="tutor-fields" class="mt-5 hidden rounded-xl border border-gray-100 bg-gray-50 p-5 transition-all duration-300 dark:border-gray-700 dark:bg-gray-900/50">
+            <p class="mb-4 text-sm font-medium text-gray-600 dark:text-gray-400">Datos del padre, madre o tutor:</p>
             <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
               <div>
-                <label for="tutor-nombres" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombres del tutor</label>
+                <label for="tutor-nombres" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombres y apellidos del tutor</label>
                 <input type="text" id="tutor-nombres" name="tutor-nombres"
                   class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
               </div>
               <div>
-                <label for="tutor-documento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Documento del tutor</label>
-                <input type="text" id="tutor-documento" name="tutor-documento"
+                <label for="tutor-doc" class="block text-sm font-medium text-gray-700 dark:text-gray-300">DNI del tutor</label>
+                <input type="text" id="tutor-doc" name="tutor-doc"
                   class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
               </div>
             </div>
           </div>
         </fieldset>
 
-        <!-- Section 2: Type -->
-        <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
-          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">2. Tipo de Solicitud</legend>
-          <div class="mt-4 flex flex-wrap gap-4">
-            <label class="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-sm font-medium text-gray-700 transition-colors has-[:checked]:border-cyan-500 has-[:checked]:bg-cyan-50 has-[:checked]:text-cyan-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:has-[:checked]:border-cyan-500 dark:has-[:checked]:bg-cyan-900/30 dark:has-[:checked]:text-cyan-300 cursor-pointer">
-              <input type="radio" name="tipo" value="reclamo" required class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
-              Reclamo
-            </label>
-            <label class="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-sm font-medium text-gray-700 transition-colors has-[:checked]:border-cyan-500 has-[:checked]:bg-cyan-50 has-[:checked]:text-cyan-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:has-[:checked]:border-cyan-500 dark:has-[:checked]:bg-cyan-900/30 dark:has-[:checked]:text-cyan-300 cursor-pointer">
-              <input type="radio" name="tipo" value="queja" class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
-              Queja
-            </label>
-          </div>
-        </fieldset>
-
-        <!-- Section 3: Product/Service -->
-        <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+        <!-- Section 3: Product / Service (RECLAMO only) -->
+        <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800" id="section-producto">
           <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">3. Identificación del Bien Contratado</legend>
+          <p class="mt-2 text-xs text-gray-500 dark:text-gray-400" id="section-producto-hint">
+            Indique el producto o servicio sobre el cual presenta su reclamo.
+          </p>
 
           <div class="mt-4 space-y-5">
             <div class="flex flex-wrap gap-4">
               <label class="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-sm font-medium text-gray-700 transition-colors has-[:checked]:border-cyan-500 has-[:checked]:bg-cyan-50 has-[:checked]:text-cyan-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:has-[:checked]:border-cyan-500 dark:has-[:checked]:bg-cyan-900/30 dark:has-[:checked]:text-cyan-300 cursor-pointer">
-                <input type="radio" name="bien-tipo" value="producto" required class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
+                <input type="radio" name="bien-tipo" value="producto" class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" id="bien-producto" />
                 Producto
               </label>
               <label class="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 px-5 py-3 text-sm font-medium text-gray-700 transition-colors has-[:checked]:border-cyan-500 has-[:checked]:bg-cyan-50 has-[:checked]:text-cyan-700 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:has-[:checked]:border-cyan-500 dark:has-[:checked]:bg-cyan-900/30 dark:has-[:checked]:text-cyan-300 cursor-pointer">
-                <input type="radio" name="bien-tipo" value="servicio" class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
+                <input type="radio" name="bien-tipo" value="servicio" class="h-4 w-4 border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" id="bien-servicio" />
                 Servicio
               </label>
             </div>
             <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="desc-bien" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción del producto o servicio <span class="text-red-500 req-reclamo" aria-hidden="true">*</span></label>
+                <textarea id="desc-bien" name="desc-bien" rows="2" placeholder="Nombre, categoría o referencia del producto/servicio..."
+                  class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"></textarea>
+              </div>
               <div>
                 <label for="monto" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Monto reclamado (S/.)</label>
                 <input type="number" id="monto" name="monto" step="0.01" min="0" placeholder="0.00"
@@ -167,110 +230,304 @@ import { site, url } from '../data/site';
                   class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
               </div>
             </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 3-alt: Hechos de atención (QUEJA only) -->
+        <fieldset class="hidden rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800" id="section-queja">
+          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">3. Hechos de la Atención</legend>
+          <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            Describa los hechos relacionados con la atención al público que motivan su queja.
+          </p>
+
+          <div class="mt-4 space-y-5">
+            <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+              <div>
+                <label for="queja-fecha" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha aproximada del hecho <span class="text-red-500" aria-hidden="true">*</span></label>
+                <input type="date" id="queja-fecha" name="queja-fecha"
+                  class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20" />
+              </div>
+              <div>
+                <label for="queja-canal" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Canal de atención <span class="text-red-500" aria-hidden="true">*</span></label>
+                <select id="queja-canal" name="queja-canal"
+                  class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20">
+                  <option value="">Seleccionar...</option>
+                  <option value="tienda">Tienda / local físico</option>
+                  <option value="web">Sitio web</option>
+                  <option value="whatsapp">WhatsApp</option>
+                  <option value="telefono">Teléfono</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+            </div>
             <div>
-              <label for="descripcion-bien" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción del producto o servicio <span class="text-red-500">*</span></label>
-              <textarea id="descripcion-bien" name="descripcion-bien" rows="3" required placeholder="Describa el producto o servicio adquirido..."
+              <label for="queja-desc" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción de los hechos <span class="text-red-500" aria-hidden="true">*</span></label>
+              <textarea id="queja-desc" name="queja-desc" rows="4" placeholder="Describa detalladamente lo ocurrido durante la atención..."
                 class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"></textarea>
             </div>
           </div>
         </fieldset>
 
-        <!-- Section 4: Detailed complaint -->
+        <!-- Section 4: Detail -->
         <fieldset class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
-          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white">4. Detalle de la Reclamación</legend>
+          <legend class="px-3 text-sm font-semibold text-gray-900 dark:text-white" id="section4-title">4. Detalle del Reclamo</legend>
 
           <div class="mt-4 space-y-5">
             <div>
-              <label for="detalle" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descripción detallada <span class="text-red-500">*</span></label>
-              <textarea id="detalle" name="detalle" rows="5" required placeholder="Describa los hechos que motivan su reclamo o queja con el mayor detalle posible..."
-                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"></textarea>
+              <label for="detalle" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span id="detalle-label">Descripción detallada del reclamo</span> <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <textarea id="detalle" name="detalle" rows="5" required
+                class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"
+                id-placeholder="reclamo"></textarea>
             </div>
             <div>
-              <label for="pedido" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pedido del consumidor <span class="text-red-500">*</span></label>
-              <textarea id="pedido" name="pedido" rows="3" required placeholder="Indique qué solución espera de parte de la empresa..."
+              <label for="pedido" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pedido del consumidor <span class="text-red-500" aria-hidden="true">*</span></label>
+              <textarea id="pedido" name="pedido" rows="3" required placeholder="Indique qué solución o acción espera de parte de la empresa..."
                 class="mt-1.5 w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-cyan-400 dark:focus:ring-cyan-400/20"></textarea>
             </div>
           </div>
         </fieldset>
 
-        <!-- Terms + Submit -->
-        <div class="space-y-4 rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+        <!-- Section 5: Provider use (disabled) -->
+        <fieldset class="rounded-2xl border border-dashed border-gray-300 bg-gray-50/50 p-6 sm:p-8 dark:border-gray-600 dark:bg-gray-800/30">
+          <legend class="px-3 text-sm font-semibold text-gray-500 dark:text-gray-400">5. Observaciones y Acciones del Proveedor</legend>
+          <p class="mt-2 text-xs text-gray-400 dark:text-gray-500 italic">Este espacio es de uso exclusivo del proveedor. Será completado una vez procesada su solicitud.</p>
+          <div class="mt-4 space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-400 dark:text-gray-500">Fecha de comunicación de la respuesta</label>
+              <input type="text" disabled value="Pendiente" class="mt-1.5 w-full rounded-lg border border-gray-200 bg-gray-100 px-3.5 py-2.5 text-sm text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-400 dark:text-gray-500">Acciones adoptadas por el proveedor</label>
+              <textarea disabled rows="3" placeholder="" class="mt-1.5 w-full rounded-lg border border-gray-200 bg-gray-100 px-3.5 py-2.5 text-sm text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Declaration + Submit -->
+        <div class="space-y-5 rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Declaración y conformidad</h3>
           <div class="space-y-3">
             <label class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
-              <input type="checkbox" name="acepto-terminos" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
-              <span>He leído y acepto la <a href={url('/politica-privacidad')} class="font-medium text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales.</span>
+              <input type="checkbox" name="acepto-conformidad" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" id="check-conformidad" />
+              <span>Declaro conformidad con el contenido y autorizo el tratamiento de mis datos personales para gestionar este <strong id="check-tipo-text">reclamo</strong>, conforme a la <a href={url('/politica-privacidad')} class="font-medium text-cyan-600 hover:underline dark:text-cyan-400">Política de Privacidad</a>.</span>
             </label>
             <label class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
-              <input type="checkbox" name="acepto-veracidad" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" />
+              <input type="checkbox" name="acepto-veracidad" required class="mt-0.5 h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 dark:border-gray-600" id="check-veracidad" />
               <span>Declaro que la información proporcionada es verdadera y completa.</span>
             </label>
           </div>
 
-          <div class="flex flex-col items-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+          <div class="flex flex-col items-center gap-3 pt-5 border-t border-gray-100 dark:border-gray-700">
             <button
               type="submit"
-              class="inline-flex items-center justify-center rounded-lg bg-cyan-500 px-8 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 hover:bg-cyan-600 hover:shadow-md active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
+              id="submit-btn"
+              class="inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-500 px-8 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 hover:bg-cyan-600 hover:shadow-md active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
             >
-              Enviar Reclamación
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+              <span id="submit-text">Enviar Reclamo</span>
             </button>
-            <p class="text-xs text-center text-gray-400 dark:text-gray-500">
-              El proveedor deberá dar respuesta al reclamo o queja en un plazo no mayor a 30 días calendario.
+            <p class="text-xs text-center text-gray-400 dark:text-gray-500 max-w-md">
+              El proveedor deberá dar respuesta en un plazo no mayor a 30 días calendario, conforme al D.S. 011-2011-PCM.
             </p>
           </div>
         </div>
       </form>
 
-      <!-- Consumer copy panel (for print) -->
-      <div class="mt-12 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50/50 p-6 sm:p-8 dark:border-gray-600 dark:bg-gray-800/30" id="consumer-copy">
+      <!-- Success confirmation (hidden) -->
+      <div class="hidden mt-8 rounded-2xl border-2 border-green-200 bg-green-50 p-8 sm:p-10 text-center dark:border-green-800/40 dark:bg-green-900/10" id="success-panel">
+        <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+          <svg class="h-7 w-7 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        </div>
+        <h2 class="text-xl font-bold text-green-800 dark:text-green-300">Solicitud registrada</h2>
+        <p class="mt-2 text-sm text-green-700 dark:text-green-400">Su <span id="success-tipo">reclamo</span> ha sido registrado con el número <strong id="success-num">001-000001</strong>.</p>
+        <p class="mt-1 text-sm text-green-600 dark:text-green-500">Recibirá una respuesta en un plazo máximo de 30 días calendario.</p>
+        <p class="mt-4 text-xs text-green-500/80 dark:text-green-500/60">Este registro es solo visual (sin guardado en base de datos por ahora). Puede imprimir esta página como constancia.</p>
+      </div>
+
+      <!-- Constancia -->
+      <div class="mt-10 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50/50 p-6 sm:p-8 dark:border-gray-600 dark:bg-gray-800/30" id="constancia-panel">
         <div class="flex items-center gap-3 mb-5">
           <svg class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m0 0a48.159 48.159 0 0114.5 0m-14.5 0v-.39c0-1.18.91-2.164 2.09-2.201a51.964 51.964 0 0110.32 0c1.18.037 2.09 1.022 2.09 2.201v.39" />
           </svg>
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Copia para el Consumidor</h3>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Constancia / Copia para el Consumidor</h3>
         </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 text-sm">
-          <div class="space-y-2">
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">Fecha:</span> ____/____/________</p>
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">N° Reclamo:</span> ________________</p>
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">Tipo:</span> Reclamo / Queja</p>
-          </div>
-          <div class="space-y-2">
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">Consumidor:</span> ________________</p>
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">DNI/CE:</span> ________________</p>
-            <p class="text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-600 dark:text-gray-400">Estado:</span> Pendiente de respuesta</p>
-          </div>
-        </div>
-        <p class="mt-4 text-xs text-gray-400 dark:text-gray-500">
-          Este espacio se completará automáticamente al registrar su reclamación. Guarde esta página como comprobante.
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Una vez registrada su solicitud, podrá imprimir o guardar esta página como constancia. Cuando el sistema de envío esté activo, recibirá además una copia por correo electrónico.
         </p>
+        <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3 text-sm">
+          <div class="rounded-lg bg-white px-4 py-3 dark:bg-gray-800">
+            <span class="block text-xs text-gray-400 dark:text-gray-500">N° de Hoja</span>
+            <span class="font-medium text-gray-700 dark:text-gray-300" id="constancia-num">001-000001</span>
+          </div>
+          <div class="rounded-lg bg-white px-4 py-3 dark:bg-gray-800">
+            <span class="block text-xs text-gray-400 dark:text-gray-500">Fecha</span>
+            <span class="font-medium text-gray-700 dark:text-gray-300">{today}</span>
+          </div>
+          <div class="rounded-lg bg-white px-4 py-3 dark:bg-gray-800">
+            <span class="block text-xs text-gray-400 dark:text-gray-500">Estado</span>
+            <span class="font-medium text-amber-600 dark:text-amber-400">Pendiente</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Provider info -->
-      <div class="mt-8 rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">Datos del Proveedor</h3>
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><span class="font-medium text-gray-900 dark:text-white">Razón Social:</span> {site.name}</p>
-          <p><span class="font-medium text-gray-900 dark:text-white">RUC:</span> Pendiente de configuración</p>
-          <p><span class="font-medium text-gray-900 dark:text-white">Dirección:</span> {site.address}</p>
-          <p><span class="font-medium text-gray-900 dark:text-white">Teléfono:</span> {site.phoneDisplay}</p>
-          <p class="sm:col-span-2"><span class="font-medium text-gray-900 dark:text-white">Email:</span> {site.email}</p>
-        </div>
-      </div>
     </div>
   </section>
 </BaseLayout>
 
 <script>
-  const menorCheckbox = document.getElementById('menor-edad') as HTMLInputElement;
-  const tutorFields = document.getElementById('tutor-fields');
+  // === Type toggle: Reclamo / Queja ===
+  const tipoBtns = document.querySelectorAll<HTMLButtonElement>('.tipo-btn');
+  const tipoInput = document.getElementById('tipo-input') as HTMLInputElement;
+  const sectionProducto = document.getElementById('section-producto')!;
+  const sectionQueja = document.getElementById('section-queja')!;
+  const section4Title = document.getElementById('section4-title')!;
+  const detalleLabel = document.getElementById('detalle-label')!;
+  const detalle = document.getElementById('detalle') as HTMLTextAreaElement;
+  const submitText = document.getElementById('submit-text')!;
+  const checkTipoText = document.getElementById('check-tipo-text')!;
+  const descBien = document.getElementById('desc-bien') as HTMLTextAreaElement;
+  const bienProducto = document.getElementById('bien-producto') as HTMLInputElement;
+  const bienServicio = document.getElementById('bien-servicio') as HTMLInputElement;
+  const quejaFecha = document.getElementById('queja-fecha') as HTMLInputElement;
+  const quejaCanal = document.getElementById('queja-canal') as HTMLSelectElement;
+  const quejaDesc = document.getElementById('queja-desc') as HTMLTextAreaElement;
 
-  menorCheckbox?.addEventListener('change', () => {
-    tutorFields?.classList.toggle('hidden', !menorCheckbox.checked);
+  let currentTipo = 'reclamo';
+
+  function setTipo(tipo: string) {
+    currentTipo = tipo;
+    tipoInput.value = tipo;
+
+    tipoBtns.forEach(btn => {
+      const isActive = btn.dataset.tipo === tipo;
+      btn.setAttribute('aria-pressed', String(isActive));
+      const check = btn.querySelector('.tipo-check') as HTMLElement;
+
+      if (isActive) {
+        if (tipo === 'reclamo') {
+          btn.className = btn.className.replace(/border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/g, 'border-cyan-500 bg-cyan-50/50 dark:bg-cyan-900/10 dark:border-cyan-500');
+        } else {
+          btn.className = btn.className.replace(/border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/g, 'border-amber-500 bg-amber-50/50 dark:bg-amber-900/10 dark:border-amber-500');
+        }
+        if (check) check.style.opacity = '1';
+      } else {
+        btn.className = btn.className
+          .replace(/border-cyan-500 bg-cyan-50\/50 dark:bg-cyan-900\/10 dark:border-cyan-500/g, 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800')
+          .replace(/border-amber-500 bg-amber-50\/50 dark:bg-amber-900\/10 dark:border-amber-500/g, 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800');
+        if (check) check.style.opacity = '0';
+      }
+    });
+
+    const isReclamo = tipo === 'reclamo';
+
+    // Toggle sections
+    sectionProducto.classList.toggle('hidden', !isReclamo);
+    sectionQueja.classList.toggle('hidden', isReclamo);
+
+    // Update required fields
+    descBien.required = isReclamo;
+    bienProducto.required = isReclamo;
+    quejaFecha.required = !isReclamo;
+    quejaCanal.required = !isReclamo;
+    quejaDesc.required = !isReclamo;
+
+    // Update labels
+    section4Title.textContent = isReclamo ? '4. Detalle del Reclamo' : '4. Detalle de la Queja';
+    detalleLabel.textContent = isReclamo
+      ? 'Descripción detallada del reclamo'
+      : 'Descripción detallada de la queja';
+    detalle.placeholder = isReclamo
+      ? 'Describa los hechos que motivan su reclamo con el mayor detalle posible...'
+      : 'Describa con detalle el motivo de su queja sobre la atención recibida...';
+    submitText.textContent = isReclamo ? 'Enviar Reclamo' : 'Enviar Queja';
+    checkTipoText.textContent = isReclamo ? 'reclamo' : 'queja';
+  }
+
+  tipoBtns.forEach(btn => {
+    btn.addEventListener('click', () => setTipo(btn.dataset.tipo!));
   });
 
+  // === Minor toggle ===
+  const menorCheckbox = document.getElementById('menor-edad') as HTMLInputElement;
+  const tutorFields = document.getElementById('tutor-fields')!;
+  menorCheckbox?.addEventListener('change', () => {
+    tutorFields.classList.toggle('hidden', !menorCheckbox.checked);
+  });
+
+  // === Validation ===
   const form = document.getElementById('complaint-form') as HTMLFormElement;
+  const successPanel = document.getElementById('success-panel')!;
+  const successTipo = document.getElementById('success-tipo')!;
+  const successNum = document.getElementById('success-num')!;
+
+  const requiredFields = [
+    { id: 'nombres', errorId: 'nombres-error' },
+    { id: 'apellidos', errorId: 'apellidos-error' },
+    { id: 'doc-numero', errorId: 'doc-numero-error' },
+    { id: 'telefono', errorId: 'telefono-error' },
+    { id: 'email', errorId: 'email-error' },
+  ];
+
+  function validateField(fieldId: string, errorId: string): boolean {
+    const field = document.getElementById(fieldId) as HTMLInputElement;
+    const error = document.getElementById(errorId);
+    if (!field || !error) return true;
+
+    const isEmpty = !field.value.trim();
+    const isInvalidEmail = field.type === 'email' && field.value && !field.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+
+    const hasError = isEmpty || isInvalidEmail;
+    error.classList.toggle('hidden', !hasError);
+    field.classList.toggle('border-red-400', hasError);
+    field.classList.toggle('dark:border-red-500', hasError);
+    field.setAttribute('aria-invalid', String(hasError));
+    return !hasError;
+  }
+
+  // Live validation on blur
+  requiredFields.forEach(({ id, errorId }) => {
+    const field = document.getElementById(id);
+    field?.addEventListener('blur', () => validateField(id, errorId));
+    field?.addEventListener('input', () => {
+      const error = document.getElementById(errorId);
+      if (error && !error.classList.contains('hidden')) {
+        validateField(id, errorId);
+      }
+    });
+  });
+
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Formulario enviado correctamente. Recibirá una respuesta en un plazo máximo de 30 días calendario.');
+
+    // Validate all required fields
+    let valid = true;
+    requiredFields.forEach(({ id, errorId }) => {
+      if (!validateField(id, errorId)) valid = false;
+    });
+
+    // Check native validity for selects, checkboxes etc.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (!valid) {
+      const firstError = form.querySelector('[aria-invalid="true"]') as HTMLElement;
+      firstError?.focus();
+      return;
+    }
+
+    // "Submit" — show success UI
+    form.classList.add('hidden');
+    successPanel.classList.remove('hidden');
+    successTipo.textContent = currentTipo;
+    successNum.textContent = '001-000001';
+    successPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+
+  // Initialize
+  setTipo('reclamo');
 </script>
