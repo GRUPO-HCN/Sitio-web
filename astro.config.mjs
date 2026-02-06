@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://grupohcn.com',
+  site: 'https://GRUPO-HCN.github.io',
+  base: '/Sitio-web/',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
