@@ -22,8 +22,10 @@ export const site = {
     defaultMessage: 'Hola, quisiera cotizar productos de su catálogo.',
   },
   social: {
-    facebook: '#',
-    instagram: '#',
+    facebook: 'https://www.facebook.com/resistenciaenacero0602/',
+    instagram: 'https://www.instagram.com/grupo_hcn/',
+    youtube: 'https://www.youtube.com/@grupohcn2045',
+    tiktok: 'https://www.tiktok.com/@grupohcn',
   },
 } as const;
 
