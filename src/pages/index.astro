@@ -35,16 +35,43 @@ const testimonials = [
     name: 'Carlos Mendoza',
     role: 'Ingeniero Hidráulico',
     text: 'Excelente variedad de válvulas y conexiones. Siempre encuentro lo que necesito para mis proyectos y la atención es impecable.',
+    avatarBg: 'bg-cyan-100 dark:bg-cyan-900/40',
+    avatarText: 'text-cyan-600 dark:text-cyan-400',
   },
   {
     name: 'María Fernández',
     role: 'Contratista',
     text: 'La asesoría que me brindan es muy valiosa. Me ayudan a elegir los materiales correctos y me dan respuesta rápida por WhatsApp.',
+    avatarBg: 'bg-amber-100 dark:bg-amber-900/40',
+    avatarText: 'text-amber-600 dark:text-amber-400',
   },
   {
     name: 'Roberto Jiménez',
     role: 'Plomero Profesional',
     text: 'Llevo años comprando aquí. La calidad de los productos es consistente y los precios son competitivos. Muy recomendable.',
+    avatarBg: 'bg-violet-100 dark:bg-violet-900/40',
+    avatarText: 'text-violet-600 dark:text-violet-400',
+  },
+  {
+    name: 'Ana García López',
+    role: 'Arquitecta',
+    text: 'Los productos de acero inoxidable son de primera calidad. Ideales para proyectos donde se necesita durabilidad y resistencia a la corrosión.',
+    avatarBg: 'bg-emerald-100 dark:bg-emerald-900/40',
+    avatarText: 'text-emerald-600 dark:text-emerald-400',
+  },
+  {
+    name: 'Luis Torres',
+    role: 'Maestro de Obra',
+    text: 'El stock es amplio y siempre tienen disponibilidad inmediata. Me ahorra mucho tiempo no tener que buscar en varios lugares. Muy satisfecho.',
+    avatarBg: 'bg-rose-100 dark:bg-rose-900/40',
+    avatarText: 'text-rose-600 dark:text-rose-400',
+  },
+  {
+    name: 'Patricia Ríos',
+    role: 'Gerente de Compras',
+    text: 'Los precios mayoristas son muy competitivos y la entrega siempre es puntual. Excelente servicio para empresas constructoras como la nuestra.',
+    avatarBg: 'bg-blue-100 dark:bg-blue-900/40',
+    avatarText: 'text-blue-600 dark:text-blue-400',
   },
 ];
 
@@ -258,42 +285,135 @@ const faqs = [
         title="Lo Que Dicen Nuestros Clientes"
         subtitle="La satisfacción de nuestros clientes es nuestra mejor carta de presentación."
       />
-      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start">
-        <!-- Video -->
-        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-black shadow-lg dark:border-gray-700">
-          <video
-            class="h-auto w-full"
-            controls
-            preload="metadata"
-            poster=""
-          >
-            <source src={url('/assets/video-agradecimiento.mp4')} type="video/mp4" />
-            Tu navegador no soporta la reproducción de video.
-          </video>
-          <div class="bg-white px-5 py-3 dark:bg-gray-800">
-            <p class="text-sm font-semibold text-gray-900 dark:text-white">Video de agradecimiento</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Grupo HCN</p>
-          </div>
-        </div>
 
-        <!-- Testimonios -->
-        <div class="flex flex-col gap-5">
-          {testimonials.map(t => (
-            <blockquote class="flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-lg dark:hover:shadow-gray-900/50">
-              <svg class="mb-3 h-8 w-8 text-cyan-200 dark:text-cyan-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
-              <p class="flex-1 text-sm text-gray-600 leading-relaxed dark:text-gray-300">{t.text}</p>
-              <footer class="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
-                <cite class="not-italic">
-                  <span class="block text-sm font-semibold text-gray-900 dark:text-white">{t.name}</span>
-                  <span class="text-xs text-gray-500 dark:text-gray-400">{t.role}</span>
-                </cite>
-              </footer>
-            </blockquote>
+      <div class="relative mx-auto max-w-3xl" id="testimonial-carousel">
+        <!-- Prev arrow -->
+        <button
+          type="button"
+          id="testimonial-prev"
+          class="absolute -left-4 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white p-2 shadow-md transition-all hover:border-cyan-300 hover:shadow-lg xl:-left-14 xl:flex dark:border-gray-600 dark:bg-gray-800 dark:hover:border-cyan-600"
+          aria-label="Testimonio anterior"
+        >
+          <svg class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        </button>
+
+        <!-- Next arrow -->
+        <button
+          type="button"
+          id="testimonial-next"
+          class="absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white p-2 shadow-md transition-all hover:border-cyan-300 hover:shadow-lg xl:-right-14 xl:flex dark:border-gray-600 dark:bg-gray-800 dark:hover:border-cyan-600"
+          aria-label="Testimonio siguiente"
+        >
+          <svg class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+        </button>
+
+        <!-- Slides -->
+        {testimonials.map((t, i) => (
+          <blockquote
+            class:list={['testimonial-slide rounded-2xl border border-gray-200 bg-white p-6 shadow-lg sm:p-8 dark:border-gray-700 dark:bg-gray-800', i !== 0 && 'hidden']}
+            data-slide={i}
+          >
+            <!-- Stars -->
+            <div class="mb-4 flex gap-0.5">
+              {[1,2,3,4,5].map(() => (
+                <svg class="h-5 w-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              ))}
+            </div>
+
+            <!-- Quote -->
+            <div class="relative">
+              <svg class="absolute -top-1 -left-1 h-8 w-8 text-cyan-100 dark:text-cyan-900/50" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+              <p class="relative z-10 pl-6 text-base text-gray-600 leading-relaxed sm:text-lg dark:text-gray-300">{t.text}</p>
+            </div>
+
+            <!-- Author -->
+            <footer class="mt-6 flex items-center gap-4 border-t border-gray-100 pt-5 dark:border-gray-700">
+              <div class:list={['flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-bold', t.avatarBg, t.avatarText]}>
+                {t.name.split(' ').slice(0, 2).map((w: string) => w[0]).join('')}
+              </div>
+              <div>
+                <span class="block text-sm font-semibold text-gray-900 dark:text-white">{t.name}</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">{t.role}</span>
+              </div>
+            </footer>
+          </blockquote>
+        ))}
+
+        <!-- Dots -->
+        <div class="mt-6 flex items-center justify-center gap-2">
+          {testimonials.map((_, i) => (
+            <button
+              type="button"
+              class:list={['testimonial-dot h-2.5 w-2.5 rounded-full transition-all duration-300', i === 0 ? 'w-7 bg-cyan-500 dark:bg-cyan-400' : 'bg-gray-300 dark:bg-gray-600']}
+              data-dot={i}
+              aria-label={`Testimonio ${i + 1}`}
+            />
           ))}
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    @keyframes testimonialFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .testimonial-slide:not(.hidden) {
+      animation: testimonialFadeIn 0.5s ease-out;
+    }
+  </style>
+
+  <script>
+    const carousel = document.getElementById('testimonial-carousel');
+    const slides = carousel?.querySelectorAll<HTMLElement>('[data-slide]') ?? [];
+    const dots = carousel?.querySelectorAll<HTMLButtonElement>('[data-dot]') ?? [];
+    const prevBtn = document.getElementById('testimonial-prev');
+    const nextBtn = document.getElementById('testimonial-next');
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    function show(index: number) {
+      slides.forEach((s, i) => {
+        if (i === index) {
+          s.classList.remove('hidden');
+          s.style.animation = 'none';
+          s.offsetHeight;
+          s.style.animation = '';
+        } else {
+          s.classList.add('hidden');
+        }
+      });
+      dots.forEach((d, i) => {
+        if (i === index) {
+          d.classList.add('bg-cyan-500', 'dark:bg-cyan-400', 'w-7');
+          d.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+        } else {
+          d.classList.remove('bg-cyan-500', 'dark:bg-cyan-400', 'w-7');
+          d.classList.add('bg-gray-300', 'dark:bg-gray-600');
+        }
+      });
+      current = index;
+    }
+
+    function next() { show((current + 1) % slides.length); }
+    function prev() { show((current - 1 + slides.length) % slides.length); }
+
+    function startTimer() { timer = setInterval(next, 5000); }
+    function stopTimer() { clearInterval(timer); }
+
+    prevBtn?.addEventListener('click', () => { stopTimer(); prev(); startTimer(); });
+    nextBtn?.addEventListener('click', () => { stopTimer(); next(); startTimer(); });
+
+    dots.forEach((d, i) => {
+      d.addEventListener('click', () => { stopTimer(); show(i); startTimer(); });
+    });
+
+    carousel?.addEventListener('mouseenter', stopTimer);
+    carousel?.addEventListener('mouseleave', startTimer);
+
+    startTimer();
+  </script>
 
   <!-- FAQ -->
   <section class="py-16 sm:py-20">
