@@ -12,6 +12,8 @@ export const site = {
   url: 'https://GRUPO-HCN.github.io/Sitio-web',
   phone: '+51900452663',
   phoneDisplay: '900 452 663',
+  phone2: '+51906002585',
+  phone2Display: '906 002 585',
   email: 'contacto@grupohcn.com',
   address: 'Av. Argentina 778 "Centro comercial el Reloj" Int. 1048 Lima - Lima',
   schedule: 'Lunes a Viernes: 8:00 - 18:00 | Sábados: 9:00 - 14:00',
